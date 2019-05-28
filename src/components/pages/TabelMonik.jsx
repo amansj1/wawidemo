@@ -2,6 +2,7 @@ import React from 'react';
 import { MDBDataTable } from 'mdbreact';
 import { MDBRow, MDBCol, MDBView, MDBCard, MDBCardBody} from 'mdbreact';
 import FormM from './modalform/FormMonik';
+import './TabelMonik.css';
 
 
 var TabelMonik = () => {
@@ -188,8 +189,8 @@ var TabelMonik = () => {
     <MDBRow>
         <MDBCol md="12">
             <MDBCard className="mt-5">
-                <MDBView className="gradient-card-header green darken-2">
-                <h4 className="h4-responsive text-white">Kegiatan Monik</h4>
+                <MDBView className="header">
+              <center>  <h2 className="text-white">Kegiatan Monik</h2></center>
                 </MDBView>
                 
                 

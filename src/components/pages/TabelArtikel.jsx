@@ -2,6 +2,7 @@ import React from 'react';
 import { MDBDataTable } from 'mdbreact';
 import { MDBRow, MDBCol, MDBView, MDBCard, MDBCardBody} from 'mdbreact';
 import FormM from './modalform/FormArtikel';
+import './TabelArtikel.css';
 
 
 var TabelArtikel = () => {
@@ -49,13 +50,18 @@ var TabelArtikel = () => {
       
     ]
   };
+  function handleClick(e) {
+    e.preventDefault();
+    console.log('The link was clicked.');
+  }
 
   return (
+
     <MDBRow>
         <MDBCol md="12">
             <MDBCard className="mt-5">
-                <MDBView className="gradient-card-header green darken-2">
-                <h4 className="h4-responsive text-white">Artikel</h4>
+                <MDBView className="header">
+                <center><h2 className="text-white">Artikel</h2></center>
                 </MDBView>
                 
                 
@@ -66,7 +72,9 @@ var TabelArtikel = () => {
                         bordered
                         small
                         data={data}
+                        onClick={handleClick}
                         />
+
                 </MDBCardBody>
             </MDBCard>
         </MDBCol>
