@@ -13,7 +13,7 @@ const DashboardPage =  () => {
   return (
     <React.Fragment>
       <BreadcrumSection />
-      <AdminCardSection1 />
+      <AdminCardSection2 />
       <ChartSection1 />
       <TableSection />
       <ChartSection2 />
