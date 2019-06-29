@@ -29,7 +29,7 @@ class TopNavigation extends Component {
                     
                     <MDBNavbarNav right>
                         <MDBNavItem>
-                            <a className="border border-light rounded mr-1 nav-link Ripple-parent" rel="noopener noreferrer" href="#" target="_blank"><i class="fas fa-power-off"></i>Logout</a>
+                            <p className="border border-light rounded mr-1 nav-link Ripple-parent" rel="noopener noreferrer"  target="_blank"><i class="fas fa-power-off"></i>Logout</p>
                         </MDBNavItem>
                     </MDBNavbarNav>
                 </MDBCollapse>

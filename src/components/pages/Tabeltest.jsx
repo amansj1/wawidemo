@@ -1,26 +1,25 @@
 import React from 'react';
 import axios from 'axios';
-
+import Tabeljs from './Tabeljs';
 
 export default class TabelArtikel extends React.Component{
 constructor(){
   super();
-  this.state = {
-  columns: [],
-  data: [],
-  loading: true
-};
+  this.state ={
+    loading : true,
+    data:[]
+  }
 }
 
 fetchdata = () =>{
-  const url ='https://zav-wawi.herokuapp.com/api/artikel/all';
+  const url ='https://jsonplaceholder.typicode.com/posts';
   axios.get(url)
   .then(response => {
     this.setState({
       data: response.data,
       loading: false
     });
-    console.log(response);
+    console.log(response.data);
   })
   .catch(error => {
     console.log(error);
@@ -40,16 +39,7 @@ render () {
   if (this.state.loading) {
     content = <div>Loading...</div>;
   } else { 
-    content = this.state.data.map(artikel => {
-      return (
-        <div key={artikel.id_mst_artikel}>
-          <p>judul:</p>&nbsp;{artikel.judul_artikel},&nbsp;
-          <p>isi:</p>&nbsp;{artikel.isi_artikel}&nbsp;
-        </div>
-        
-
-      );
-    });
+   content = <Tabeljs data1={this.data}/>
   }
 
   return (

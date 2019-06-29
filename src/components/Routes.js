@@ -7,13 +7,15 @@ import DashboardPage from './pages/DashboardPage';
 import NotFoundPage from './pages/NotFoundPage';
 import TabelMonik from './pages/TabelMonik';
 import TabelArtikel from './pages/TabelArtikel';
+import Tabeltest from './pages/Tabeltest';
 import PageAntrian from './pages/PageAntrian';
+// import Test from './pages/Test';
 
 class Routes extends React.Component {
   render() {
     return (
       <Switch>
-        <Route path='/' exact component={NotFoundPage} />
+        <Route path='/' exact component={Tabeltest} />
         <Route path='/PageAntrian' exact component={PageAntrian} />
         <Route path='/dashboard' component={DashboardPage} />
         <Route path='/monik' component={TabelMonik} />

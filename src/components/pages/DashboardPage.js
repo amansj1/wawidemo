@@ -1,6 +1,6 @@
 import React from 'react';
 import { MDBRow } from 'mdbreact';
-import AdminCardSection1 from './sections/AdminCardSection1';
+// import AdminCardSection1 from './sections/AdminCardSection1';
 import AdminCardSection2 from './sections/AdminCardSection2';
 import TableSection from './sections/TableSection';
 import BreadcrumSection from './sections/BreadcrumSection';

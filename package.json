@@ -5,8 +5,13 @@
   "author": "KandangKodingMDB",
   "license": "MDB",
   "dependencies": {
+    "@material-ui/core": "^4.1.1",
+    "@material-ui/icons": "^4.2.0",
+    "axios": "^0.19.0",
     "google-map-react": "^1.0.6",
+    "material-table": "^1.39.1",
     "mdbreact": "^4.9.0",
+    "mui-datatables": "^2.5.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-router-dom": "^4.3.1",
