@@ -1,17 +1,24 @@
 import React from 'react';
 import axios from 'axios';
-
+import MTable from 'material-table';
 
 export default class TabelArtikel extends React.Component{
-constructor(){
-  super();
-  this.state = {
-  columns: [],
-  data: [],
-  loading: true
-};
-}
+  constructor(){
+    super();
+    this.state ={
+      columns: [
+        {title:'ID', field:'id_mst_artikel'},
+        {title:'Judul', field:'judul_artikel'},
+        {title:'Isi', field:'isi_artikel'},
+        {title:'Foto Artikel', field:'foto_artikel'},
+        {title:'Nama Penulis', field:'mst_penulis.name'},
+        {title:'Tanggal Dibuat', field:'created_at'},
 
+      ],
+      loading : true,
+      data:[]
+    }
+  }
 fetchdata = () =>{
   const url ='https://zav-wawi.herokuapp.com/api/artikel/all';
   axios.get(url)
@@ -28,11 +35,7 @@ fetchdata = () =>{
 }
 
 componentDidMount(){
-
     return this.fetchdata();
-
-
- 
 }
 render () {
   let content;
@@ -40,16 +43,15 @@ render () {
   if (this.state.loading) {
     content = <div>Loading...</div>;
   } else { 
-    content = this.state.data.map(artikel => {
-      return (
-        <div key={artikel.id_mst_artikel}>
-          <p>judul:</p>&nbsp;{artikel.judul_artikel},&nbsp;
-          <p>isi:</p>&nbsp;{artikel.isi_artikel}&nbsp;
-        </div>
-        
+    content =  <MTable 
+    title="Artikel"
+    columns={this.state.columns}
+    data={this.state.data}
+    editable = {{
+    onRowAdd: console.log('haiii')
+    }}
+    />
 
-      );
-    });
   }
 
   return (
