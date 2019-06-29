@@ -1,11 +1,16 @@
 import React from 'react';
 import axios from 'axios';
-import Tabeljs from './Tabeljs';
+import MTable from 'material-table';
 
 export default class TabelArtikel extends React.Component{
 constructor(){
   super();
   this.state ={
+    columns: [
+      {title:'ID', field:'id'},
+      {title:'Judul', field:'title'},
+      {title:'Isi', field:'body'},
+    ],
     loading : true,
     data:[]
   }
@@ -39,7 +44,13 @@ render () {
   if (this.state.loading) {
     content = <div>Loading...</div>;
   } else { 
-   content = <Tabeljs data1={this.data}/>
+   content = 
+    <MTable 
+    title="JSON Placeholder"
+    columns={this.state.columns}
+    data={this.state.data}
+    />
+
   }
 
   return (
