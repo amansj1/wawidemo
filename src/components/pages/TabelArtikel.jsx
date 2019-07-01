@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import MTable from 'material-table';
 
+
 export default class TabelArtikel extends React.Component{
   constructor(){
     super();
@@ -34,10 +35,18 @@ fetchdata = () =>{
   });
 }
 
+
 componentDidMount(){
     return this.fetchdata();
 }
 render () {
+  function rowClik (e,rowData) {
+    e.preventDefault();
+    console.log('ini id',rowData.mst_penulis.name );
+  }
+
+
+
   let content;
 
   if (this.state.loading) {
@@ -47,15 +56,15 @@ render () {
     title="Artikel"
     columns={this.state.columns}
     data={this.state.data}
-    editable = {{
-    onRowAdd: console.log('haiii')
-    }}
+    onRowClick={rowClik}
+
     />
 
   }
 
   return (
     <div>
+
       {content}
     </div>
   )
