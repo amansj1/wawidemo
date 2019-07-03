@@ -13,6 +13,11 @@ export default class TabelArtikel extends React.Component{
   constructor(){
     super();
     this.state ={
+      Judul:'',
+      Isi:'',
+      Foto:'',
+      idpenulis:'1',
+      idkategori:'1',
       modaladd:false,
       columns: [
         {title:'ID', field:'id_mst_artikel'},
@@ -27,6 +32,28 @@ export default class TabelArtikel extends React.Component{
     };
     this.toggle = this.toggle.bind(this);
   }
+  handleChangeAdd = event =>{
+    this.setState({
+      [event.target.name]: event.target.value
+  })
+    console.log( this.state.Judul , this.state.Isi , this.state.Foto, this.state.idpenulis, this.state.idkategori );
+  }
+handleSubmitAdd = event =>{
+  event.preventDefault();
+  const addartikel ={
+    judul_artikel : this.state.Judul,
+    isi_artikel : this.state.Isi,
+    foto_artikel : this.state.Foto,
+    id_mst_penulis : this.state.idpenulis,
+    id_kategori_artikel : this.state.idkategori
+  };
+  axios.post('https://zav-wawi.herokuapp.com/api/artikel/create',{addartikel})
+  .then(res => {
+    console.log(res);
+    console.log(res.data)
+  })
+}
+
   toggle() {
     this.setState(prevState => ({
       modaladd: !prevState.modaladd
@@ -91,34 +118,43 @@ render () {
     <div>
       {content}
       <Modal isOpen={this.state.modaladd} toggle={this.toggle} className={this.props.className}>
-          <ModalHeader toggle={this.toggle}>Tambah Artikel</ModalHeader>
+          <ModalHeader toggle={this.toggle}><b>Tambah Artikel</b></ModalHeader>
+          <form onSubmit ={this.handleSubmitAdd}  >
           <ModalBody>
-         
             <TextField
+              name="Judul"
               id="outlined-name"
               label="Judul Artikel"
               margin="normal"
               variant="outlined"
+              onChange={this.handleChangeAdd}
             />
-       
         <br/>
             <TextField
               id="outlined-multiline-static"
               label="Isi Artikel"
+              name="Isi"
               fullWidth
               multiline
               rows="7"
               defaultValue=""
               margin="normal"
               variant="outlined"
+              onChange={this.handleChangeAdd}
             />
-
-
+             <input
+                accept="image/*"
+                id="text-button-file"
+                multiple
+                name="Foto"
+                onChange={this.handleChangeAdd}
+                type="file"
+              />
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
-            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+            <Button type="submit">Submit</Button>
           </ModalFooter>
+          </form>
         </Modal>
 
 
