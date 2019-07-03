@@ -4,10 +4,6 @@ import MTable, {MTableToolbar} from 'material-table';
 import Chip from '@material-ui/core/Chip';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 export default class TabelArtikel extends React.Component{
   constructor(){
@@ -38,20 +34,23 @@ export default class TabelArtikel extends React.Component{
   })
     console.log( this.state.Judul , this.state.Isi , this.state.Foto, this.state.idpenulis, this.state.idkategori );
   }
-handleSubmitAdd = event =>{
-  event.preventDefault();
+handleSubmitAdd (e){
+  debugger
+  e.preventDefault();
+  const apiurl = 'https://zav-wawi.herokuapp.com/api/artikel/create'
   const addartikel ={
+    id_mst_penulis : this.state.idpenulis,
     judul_artikel : this.state.Judul,
     isi_artikel : this.state.Isi,
-    foto_artikel : this.state.Foto,
-    id_mst_penulis : this.state.idpenulis,
-    id_kategori_artikel : this.state.idkategori
+    id_kategori_artikel : this.state.idkategori,
+    foto_artikel : this.state.Foto    
   };
-  axios.post('https://zav-wawi.herokuapp.com/api/artikel/create',{addartikel})
+  axios.post(apiurl, addartikel)
   .then(res => {
-    console.log(res);
-    console.log(res.data)
+    this.fetchdata();
+    console.log(res.data);
   })
+  this.toggle();
 }
 
   toggle() {
@@ -119,8 +118,16 @@ render () {
       {content}
       <Modal isOpen={this.state.modaladd} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}><b>Tambah Artikel</b></ModalHeader>
-          <form onSubmit ={this.handleSubmitAdd}  >
+          <form method="post" onSubmit ={(e) => this.handleSubmitAdd(e)}  >
           <ModalBody>
+            <div>
+              <pre> debug judul : {this.state.Judul}</pre>
+              <pre> debug isi : {this.state.Isi}</pre>
+              <pre> debug foto : {this.state.Foto}</pre>
+              <pre> debug idpenuls : {this.state.idpenulis}</pre>
+              <pre> debug idkate : {this.state.idkategori}</pre>
+            </div>
+
             <TextField
               name="Judul"
               id="outlined-name"
@@ -142,17 +149,19 @@ render () {
               variant="outlined"
               onChange={this.handleChangeAdd}
             />
-             <input
-                accept="image/*"
-                id="text-button-file"
-                multiple
-                name="Foto"
-                onChange={this.handleChangeAdd}
-                type="file"
-              />
+           
+            <TextField
+              name="Foto"
+              id="outlined-name"
+              label="Link Foto"
+              margin="normal"
+              variant="outlined"
+              onChange={this.handleChangeAdd}
+            />
+ 
           </ModalBody>
           <ModalFooter>
-            <Button type="submit">Submit</Button>
+            <Button type="submit" color="grey">Submit</Button>
           </ModalFooter>
           </form>
         </Modal>
