@@ -9,12 +9,14 @@ export default class TabelArtikel extends React.Component{
   constructor(){
     super();
     this.state ={
+      //variable untuk diisi
       Judul:'',
       Isi:'',
       Foto:'',
       idpenulis:'1',
       idkategori:'1',
-      modaladd:false,
+
+      //property table untuk disi pake API
       columns: [
         {title:'ID', field:'id_mst_artikel'},
         {title:'Judul', field:'judul_artikel'},
@@ -23,19 +25,17 @@ export default class TabelArtikel extends React.Component{
         {title:'Nama Penulis', field:'mst_penulis.name'},
         {title:'Tanggal Dibuat', field:'created_at'},
       ],
+      data:[],
+
+      //manage tampilan
       loading : true,
-      data:[]
+      modaladd:false,
     };
     this.toggle = this.toggle.bind(this);
   }
-  handleChangeAdd = event =>{
-    this.setState({
-      [event.target.name]: event.target.value
-  })
-    console.log( this.state.Judul , this.state.Isi , this.state.Foto, this.state.idpenulis, this.state.idkategori );
-  }
+
+//ketika submit dari form artikel (POST DATA)
 handleSubmitAdd (e){
-  debugger
   e.preventDefault();
   const apiurl = 'https://zav-wawi.herokuapp.com/api/artikel/create'
   const addartikel ={
@@ -53,13 +53,7 @@ handleSubmitAdd (e){
   this.toggle();
 }
 
-  toggle() {
-    this.setState(prevState => ({
-      modaladd: !prevState.modaladd
-    }));
-  }
-
-
+// ambil data ke API (GET DATA)
 fetchdata = () =>{
   const url ='https://zav-wawi.herokuapp.com/api/artikel/all';
   axios.get(url)
@@ -74,21 +68,34 @@ fetchdata = () =>{
     console.log(error);
   });
 }
-
-
 componentDidMount(){
     return this.fetchdata();
 }
-render () {
-//handle
-  function rowClik (e,rowData) {
-    e.preventDefault();
-    console.log('ini id',rowData.mst_penulis.name );
+
+
+
+// kumpulan handle onclik/onchange
+// untuk buka modal add
+toggle() {
+    this.setState(prevState => ({
+      modaladd: !prevState.modaladd    
+    }));
+}
+  //untuk form add masukin value ke state
+  handleChangeAdd = event =>{
+    this.setState({
+      [event.target.name]: event.target.value
+  })
   }
-  // function handleClick(e){
-  //   e.preventDefault();
-  //  this.setState =({open:true}); 
-  // }
+
+//handle yang ambil data dari table
+rowClik = (e,rowData) => {
+  e.preventDefault();
+  console.log('ini id',rowData.mst_penulis.name );
+}
+
+
+render () {
 //content
   let content;
   if (this.state.loading) {
@@ -98,13 +105,13 @@ render () {
     title="Artikel"
     columns={this.state.columns}
     data={this.state.data}
-    onRowClick={rowClik}
+    onRowClick={this.rowClik}
     components={{
       Toolbar: props => (
         <div>
           <MTableToolbar {...props} />
           <div style={{padding: '0px 10px'}}>
-            <Chip label="+ Tambah Artikel" onClick={this.toggle} color="grey" style={{marginLeft: 5}}/>
+            <Chip label="+ Tambah Artikel" onClick={this.toggle}  style={{marginLeft: 5}}/>
           </div>
         </div>
       ),
@@ -116,17 +123,18 @@ render () {
   return (
     <div>
       {content}
+      {/* modal untuk add form */}
       <Modal isOpen={this.state.modaladd} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}><b>Tambah Artikel</b></ModalHeader>
           <form method="post" onSubmit ={(e) => this.handleSubmitAdd(e)}  >
           <ModalBody>
-            <div>
+            {/* <div>
               <pre> debug judul : {this.state.Judul}</pre>
               <pre> debug isi : {this.state.Isi}</pre>
               <pre> debug foto : {this.state.Foto}</pre>
               <pre> debug idpenuls : {this.state.idpenulis}</pre>
               <pre> debug idkate : {this.state.idkategori}</pre>
-            </div>
+            </div> */}
 
             <TextField
               name="Judul"
@@ -165,6 +173,9 @@ render () {
           </ModalFooter>
           </form>
         </Modal>
+      
+
+
 
 
 
