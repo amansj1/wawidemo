@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import MTable from 'material-table';
+import Maps from './Maps';
 
 export default class TabelArtikel extends React.Component{
 constructor(){
@@ -55,6 +56,15 @@ render () {
 
   return (
     <div>
+    
+      <Maps
+     google={this.props.google}
+     center={{lat: -7.790073587756385, lng: 110.36041300469356}}
+     height='300px'
+     zoom={15}
+    />
+    <br/>
+    <br/>
       {content}
     </div>
   )

@@ -7,7 +7,7 @@ const Footer = () => {
         <MDBFooter className="text-center footer">
             
             <p className="footer-copyright mb-0 py-3 text-center">
-             &copy; {new Date().getFullYear()} Copyright:  KandangKoding
+             &copy; {new Date().getFullYear()} Copyright:  AdminWawi
             </p>
         </MDBFooter>
     );
