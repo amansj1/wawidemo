@@ -9,6 +9,7 @@ import TabelMonik from './pages/TabelMonik';
 import TabelArtikel from './pages/TabelArtikel';
 import Tabeltest from './pages/Tabeltest';
 import PageAntrian from './pages/PageAntrian';
+// import TabelMonikTest from './pages/TabelMonikTest';
 // import Test from './pages/Test';
 
 class Routes extends React.Component {

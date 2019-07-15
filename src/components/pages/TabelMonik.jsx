@@ -5,12 +5,16 @@ import Chip from '@material-ui/core/Chip';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import TextField from '@material-ui/core/TextField';
 import Maps from './Maps';
+import InputLabel from '@material-ui/core/InputLabel';
+import NativeSelect from '@material-ui/core/NativeSelect';
+import Input from '@material-ui/core/Input';
 
 
 
 
 
-export default class TabelArtikel extends React.Component{
+
+export default class TabelMonik extends React.Component{
   constructor(props){
     super(props);
     this.state ={
@@ -22,8 +26,8 @@ export default class TabelArtikel extends React.Component{
       selesai:'',
       kegiatan:'',
       tgl:'',
-      long:'',
-      lat:'',
+      long: 0,
+      lat: 0,
 
       //property table untuk disi pake API
       columns: [
@@ -50,6 +54,7 @@ export default class TabelArtikel extends React.Component{
 //ketika submit dari form artikel (POST DATA)
 handleSubmitAdd (e){
   e.preventDefault();
+  this.resetstate();
   const apiurl = 'https://zav-wawi.herokuapp.com/api/jadwal_monik/create'
   const add ={
     id_mst_monik : this.state.idmonik,
@@ -129,7 +134,7 @@ componentWillUnmount() {
 // kumpulan handle onclik/onchange
 
 //reset state
-resetstate(){
+resetstate = () =>{
 this.setState({
   id : '',
   idmonik:'',
@@ -252,6 +257,8 @@ render () {
               <pre> debug mulai : {this.state.mulai}</pre>
               <pre> debug selesai : {this.state.selesai}</pre>
               <pre> debug kegiatan : {this.state.kegiatan}</pre>
+              <pre> debug idmonik : {this.state.idmonik}</pre>
+
             
             </div>
 
@@ -265,7 +272,26 @@ render () {
               onChange={this.handleChangeAdd}
             />
         <br/>
-        
+              <InputLabel htmlFor="age-native-helper">Monik</InputLabel>
+              <NativeSelect
+                value={this.state.idmonik}
+                onChange={this.handleChangeAdd}
+                input={<Input name="idmonik" id="age-native-helper" />}
+              >
+                <option value="" />
+                <option value={1}>Monik - 1</option>
+                <option value={2}>Monik - 2</option>
+                <option value={3}>Monik - 3</option>
+                <option value={4}>Monik - 4</option>
+                <option value={5}>Monik - 5</option>
+                <option value={6}>Monik - 6</option>
+                <option value={7}>Monik - 7</option>
+                <option value={8}>Monik - 8</option>
+                <option value={9}>Monik - 9</option>
+                <option value={10}>Monik - 10</option>
+
+              </NativeSelect>
+
               <TextField
               id="date"
               name="tgl"
@@ -330,44 +356,100 @@ render () {
           <ModalHeader toggle={this.toggleU}><b>Update Artikel {this.state.id}</b></ModalHeader>
           <form method="post" onSubmit ={(e) => this.handleSubmitPut(e)}  >
           <ModalBody>
-         
+            <div>
+              <pre> debug long : {this.state.long}</pre>
+              <pre> debug lat : {this.state.lat}</pre>
+              </div>
+          <Maps
+            google={this.props.google}
+            center={{lat:this.state.lat, lng: this.state.long}}
+            height='300px'
+            zoom={15}
+            onLatChange ={(value)=> this.handleLatChange(value)}
+            onLngChange ={(value)=> this.handleLngChange(value)}
+             /> <br/><br/>
+      
+
             <TextField
-              name="Judul"
+              name="kegiatan"
               id="outlined-name"
-              label="Judul Artikel"
+              label="Kegiatan"
+              fullWidth
               margin="normal"
               variant="outlined"
-              defaultValue=''
-              value = {this.state.Judul}
+              value ={this.state.kegiatan}
               onChange={this.handleChangeAdd}
             />
         <br/>
-            <TextField
-              id="outlined-multiline-static"
-              label="Isi Artikel"
-              name="Isi"
-              fullWidth
-              multiline
-              rows="7"
-              defaultValue=''
-              margin="normal"
-              variant="outlined"
-              value = {this.state.Isi}
-              onChange={this.handleChangeAdd}
-             
-            />
+              <InputLabel htmlFor="age-native-helper">Monik</InputLabel>
+              <NativeSelect
+                value={this.state.idmonik}
+                onChange={this.handleChangeAdd}
+                input={<Input name="idmonik" value={this.state.idmonik} id="age-native-helper" />}
+              >
+                <option value="" />
+                <option value={1}>Monik - 1</option>
+                <option value={2}>Monik - 2</option>
+                <option value={3}>Monik - 3</option>
+                <option value={4}>Monik - 4</option>
+                <option value={5}>Monik - 5</option>
+                <option value={6}>Monik - 6</option>
+                <option value={7}>Monik - 7</option>
+                <option value={8}>Monik - 8</option>
+                <option value={9}>Monik - 9</option>
+                <option value={10}>Monik - 10</option>
 
-            <TextField
-              name="Foto"
-              id="outlined-name"
-              label="Link Foto"
-              margin="normal"
-              defaultValue=''
-              variant="outlined"
-              value = {this.state.Foto}
+              </NativeSelect>
+
+              <TextField
+              id="date"
+              name="tgl"
+              label="Tanggal Pelaksanaan"
+              type="date"
+              value={this.state.tgl}
+              defaultValue="2019-05-24"
+              InputLabelProps={{
+                shrink: true,
+              }}
               onChange={this.handleChangeAdd}
             />
-           
+            &emsp; &emsp; &emsp;
+            <TextField
+              id="time"
+              name="mulai"
+              label="Waktu Mulai"
+              type="time"
+              value = {this.state.mulai}
+              defaultValue="07:30"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              inputProps={{
+                step: 300, // 5 min
+              }}
+              onChange={this.handleChangeAdd}
+            />
+            &emsp; &emsp; &emsp;
+            <TextField
+              id="time"
+              label="Waktu Selesai"
+              name="selesai"
+              type="time"
+              value = {this.state.selesai}
+              defaultValue="07:30"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              inputProps={{
+                step: 300, // 5 min
+              }}
+              onChange={this.handleChangeAdd}
+
+            />
+          <br/>
+          <br/>
+          <br/>
+
           </ModalBody>
           <ModalFooter>
             <Button type="button" color="red" onClick={(e) => this.handleDel(e)}>Delete</Button>
