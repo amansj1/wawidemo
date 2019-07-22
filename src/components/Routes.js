@@ -5,21 +5,21 @@ import DashboardPage from './pages/DashboardPage';
 // import TablesPage from './pages/TablesPage';
 // import MapsPage from './pages/MapsPage';
 import NotFoundPage from './pages/NotFoundPage';
-import TabelMonik from './pages/TabelMonik';
+// import TabelMonik from './pages/TabelMonik';
 import TabelArtikel from './pages/TabelArtikel';
-import Tabeltest from './pages/Tabeltest';
+// import Tabeltest from './pages/Tabeltest';
 import PageAntrian from './pages/PageAntrian';
-// import TabelMonikTest from './pages/TabelMonikTest';
+import TabelMonikTest from './pages/TabelMonikTest';
 // import Test from './pages/Test';
 
 class Routes extends React.Component {
   render() {
     return (
       <Switch>
-        <Route path='/' exact component={Tabeltest} />
+        <Route path='/' exact component={NotFoundPage} />
         <Route path='/PageAntrian' exact component={PageAntrian} />
         <Route path='/dashboard' component={DashboardPage} />
-        <Route path='/Monik' component={TabelMonik} />
+        <Route path='/Monik' component={TabelMonikTest} />
         <Route path='/artikel' component={TabelArtikel} />
         <Route path='/maps' component={NotFoundPage} />
         <Route path='/404' component={NotFoundPage} />
