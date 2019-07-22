@@ -29,18 +29,7 @@ const TopNavigation = () => {
                         Admin Artikel
                     </MDBListGroupItem>
                 </NavLink>
-                <NavLink to="/maps" activeClassName="activeClass">
-                    <MDBListGroupItem>
-                        <MDBIcon icon="fas fa-capsules" className="mr-3"/>
-                        Admin Apotik
-                    </MDBListGroupItem>
-                </NavLink>
-                <NavLink to="/404" activeClassName="activeClass">
-                    <MDBListGroupItem>
-                        <MDBIcon icon="exclamation" className="mr-3"/>
-                        404
-                    </MDBListGroupItem>
-                </NavLink>
+              
             </MDBListGroup>
         </div>
     );

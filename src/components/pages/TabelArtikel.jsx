@@ -234,6 +234,8 @@ render () {
               variant="outlined"
               onChange={this.handleChangeAdd}
             />
+            <br/>
+            <img src={this.state.Foto} alt="Foto Artikel" width="500" height="333"></img>
  
           </ModalBody>
           <ModalFooter>
