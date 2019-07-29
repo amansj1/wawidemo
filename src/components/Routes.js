@@ -9,8 +9,9 @@ import NotFoundPage from './pages/NotFoundPage';
 import TabelArtikel from './pages/TabelArtikel';
 // import Tabeltest from './pages/Tabeltest';
 import PageAntrian from './pages/PageAntrian';
-import TabelMonikTest from './pages/TabelMonikTest';
+// import TabelMonikTest from './pages/TabelMonikTest';
 // import Test from './pages/Test';
+import DashMonik from './pages/DashMonik';
 
 class Routes extends React.Component {
   render() {
@@ -19,7 +20,7 @@ class Routes extends React.Component {
         <Route path='/' exact component={NotFoundPage} />
         <Route path='/PageAntrian' exact component={PageAntrian} />
         <Route path='/dashboard' component={DashboardPage} />
-        <Route path='/Monik' component={TabelMonikTest} />
+        <Route path='/Monik' component={DashMonik} />
         <Route path='/artikel' component={TabelArtikel} />
         <Route path='/maps' component={NotFoundPage} />
         <Route path='/404' component={NotFoundPage} />
