@@ -9,7 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
-import './TableMonikTest.css';
+import './TabelMonikTest.css';
 
 export default class TabelMonikTest  extends React.Component{
     constructor(props){

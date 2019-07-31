@@ -16,7 +16,7 @@ class App extends Component {
           <main id="content" className="p-5">
             <Routes />
           </main>
-          <div className="foot"><Footer /></div>
+          {/* <div className="foot"><Footer /></div> */}
           
         </div>
     );
