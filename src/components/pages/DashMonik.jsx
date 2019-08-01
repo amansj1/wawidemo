@@ -1,6 +1,7 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 import './DashMonik.css';
-import TabelMonik from './TabelMonikTest.jsx';
+
 
 export default class DashMonik extends React.Component{
     
@@ -13,7 +14,7 @@ export default class DashMonik extends React.Component{
 				<figcaption>
 					<h2>Pendaftaran <span>Pasien</span></h2>
 					<p>Menambahkan data pasien pengujung Monik.</p>
-					<a href="https://image.freepik.com/foto-gratis/formulario-solicitud-llenado-aplicando-concepto_53876-34113.jpg">View more</a>
+					<Link to="/pasienmonik"></Link>
 				</figcaption>			
 			</figure>
             <figure class="effect-ruby">
@@ -21,7 +22,7 @@ export default class DashMonik extends React.Component{
 				<figcaption>
 					<h2>Tambah <span>Jadwal</span></h2>
 					<p>Menambahkan jadwal kegiatan monik.</p>
-					<a href={TabelMonik}>View more</a>
+					<Link to="/jadwalmonik"></Link>
 				</figcaption>			
 			</figure>
             </div>

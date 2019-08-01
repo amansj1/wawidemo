@@ -11,7 +11,7 @@ const TopNavigation = () => {
                 <h4><strong>[Nama Puskesmas]</strong></h4>
             </a>
             <MDBListGroup className="list-group-flush">
-                <NavLink exact={true} to="/" activeClassName="activeClass">
+                <NavLink exact={true} to="/kelolaAntrian" activeClassName="activeClass">
                     <MDBListGroupItem>
                      <MDBIcon icon="fas fa-user-friends" className="mr-3"/> 
                         Antrian 
