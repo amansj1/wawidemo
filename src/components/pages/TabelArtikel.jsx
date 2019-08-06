@@ -158,7 +158,7 @@ rowClik = (e,rowData) => {
   });
   this.toggleU();
 //isi data state nya pake roeData.var
-  console.log('ini id',rowData.mst_penulis.name );
+  // console.log('ini id',rowData.mst_penulis.name );
   
 }
 
