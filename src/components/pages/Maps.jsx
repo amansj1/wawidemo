@@ -274,7 +274,7 @@ class Maps extends Component{
 								marginBottom: '500px'
 							}}
 							onPlaceSelected={ this.onPlaceSelected }
-							types={['(regions)']}
+							types={['establishment']} //'(regions)'
 						/>
 					</GoogleMap>
 				)

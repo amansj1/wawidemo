@@ -1,3 +1,8 @@
 #input2{
  padding-left: 16px;
 }
+.tombol{
+    position: absolute; 
+    right: 0;
+    float: right;
+}

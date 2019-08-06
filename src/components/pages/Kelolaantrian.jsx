@@ -161,7 +161,7 @@ fetchdata = () =>{
         } else { 
             content =  
             <div>
-            <MTable 
+            <MTable       
             title="Antrian Pasien"
             columns={this.state.columns}
             data={this.state.data}
