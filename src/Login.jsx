@@ -40,6 +40,7 @@ class Login extends React.Component {
      provider:'',
      token:'',
      nama:'',
+     id_mst_puskesmas:'',
      redirectToReferrer: false,
      loading: false
     }
@@ -69,6 +70,7 @@ class Login extends React.Component {
           this.setState({
             token:res.data.access_token,
             nama:res.data.login_data.nama_puskesmas,
+            id_mst_puskesmas:res.data.login_data.id_mst_puskesmas,
             redirectToReferrer: true,
             loading:false
           });
@@ -125,6 +127,7 @@ class Login extends React.Component {
           <SideNavPuskesmas nama={this.state.nama}/>
           <main id="content" className="p-5">
             <RoutesPuskesmas
+            idpuskes={this.state.id_mst_puskesmas}
             />
           </main>
         </div>

@@ -15,7 +15,7 @@ constructor(props){
     this.state ={
         rowklik:false,
         loading:true,
-        puskesmasid:3,
+        puskesmasid:'',
         poliid:4,
         dokterid:5,
         id_antrian:'',
@@ -48,7 +48,7 @@ constructor(props){
 fetchdata = () =>{
 
     const url ='https://zav-wawi.herokuapp.com/api/antrian/puskesmasid=';
-    axios.get(url + this.state.puskesmasid + '&&poliid=' + this.state.poliid + '&&dokterid=' + this.state.dokterid + '&&all=true' )
+    axios.get(url + this.props.ipus + '&&poliid=' + this.state.poliid + '&&dokterid=' + this.state.dokterid + '&&all=true' )
     .then(response => {
       this.setState({
         data: response.data.data,
@@ -62,7 +62,7 @@ fetchdata = () =>{
 
 
     const url1 ='https://zav-wawi.herokuapp.com/api/antrian/hasconfirm/puskesmasid=';
-    axios.get(url1 + this.state.puskesmasid + '&&poliid=' + this.state.poliid + '&&dokterid=' + this.state.dokterid )
+    axios.get(url1 + this.props.ipus + '&&poliid=' + this.state.poliid + '&&dokterid=' + this.state.dokterid )
     .then(response => {
       this.setState({
         datacon: response.data.data,
@@ -76,7 +76,7 @@ fetchdata = () =>{
 
 
     const url2 ='https://zav-wawi.herokuapp.com/api/antrian/hasprocess/puskesmasid=';
-    axios.get(url2 + this.state.puskesmasid + '&&poliid=' + this.state.poliid + '&&dokterid=' + this.state.dokterid )
+    axios.get(url2 + this.props.ipus + '&&poliid=' + this.state.poliid + '&&dokterid=' + this.state.dokterid )
     .then(response => {
       this.setState({
         datapro: response.data.data,
@@ -96,6 +96,7 @@ fetchdata = () =>{
   componentDidMount(){
       return this.fetchdata();
   }
+  
   
   handleChangeAdd = event =>{
     this.setState({
@@ -155,6 +156,7 @@ fetchdata = () =>{
 
 
     render(){
+     
         let content;
         if (this.state.loading) {
             content = <div>Loading...</div>;
@@ -195,28 +197,7 @@ fetchdata = () =>{
                     <h5>Input Terlebih dahulu</h5>
                     <div className="row">
                         
-                        <div className="col-md-3">
-                            
-                            <NativeSelect id="select"
-                                value={this.state.puskesmasid}
-                                onChange={this.handleChangeAdd}
-                                input={<OutlinedInput name="puskesmasid" value={this.state.puskesmasid} fullWidth id="outlined-age-simple"  />}
-                            >
-                                <option>- Pilih Puskesmas -</option>
-                                <option value={1}>Puskesmas Kenes</option>
-                                <option value={2}>Puskesmas Kayun</option>
-                                <option value={3}>Puskesmas Argono</option>
-                                <option value={4}>Puskesmas Tirta</option>
-                                <option value={5}>Puskesmas Endra</option>
-                                <option value={6}>Puskesmas Irsad</option>
-                                <option value={7}>Puskesmas Wasis</option>
-                                <option value={8}>Puskesmas Ivan</option>
-                                <option value={9}>Puskesmas Balapati</option>
-                                <option value={10}>Puskesmas Edison</option>
-                                <option value={12}>Puskesmas Update</option>
-                                <option value={13}>Puskesmas Kayun</option>
-                            </NativeSelect>
-                        </div>
+                       
                         <div className="col-md-3">
                             
                             <NativeSelect id="select"

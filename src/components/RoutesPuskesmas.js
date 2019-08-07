@@ -7,7 +7,7 @@ class RoutesPuskesmas extends React.Component {
   constructor(props){
     super(props);
     this.state ={
-     token:''
+     token:'',
     }
   }  
 
@@ -16,7 +16,7 @@ class RoutesPuskesmas extends React.Component {
     return (
        <Switch>
         <Redirect exact from='/' to='/kelolaantrian'/>
-        <Route exact path='/kelolaantrian' component={Kelolaantrian} />
+        <Route exact path='/kelolaantrian' component={()=> <Kelolaantrian ipus={this.props.idpuskes}/>}/> 
         <Route component={NotFoundPage} />   
         <Route path='/' component={LoginPage} />
         
