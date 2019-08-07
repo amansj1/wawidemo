@@ -18,7 +18,7 @@ class RoutesPenulis extends React.Component {
        <Switch>
         
        <Redirect exact from='/' to='/artikel'/>
-       <Route exact path='/artikel' component={TabelArtikel} />     
+       <Route exact path='/artikel' component={()=> <TabelArtikel id_pengguna={this.props.id_pengguna}/>} />     
        <Route component={NotFoundPage} />          
        <Route path='/' component={LoginPage} />
         

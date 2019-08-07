@@ -4,6 +4,8 @@ import MTable, {MTableToolbar} from 'material-table';
 import Chip from '@material-ui/core/Chip';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import TextField from '@material-ui/core/TextField';
+import NativeSelect from '@material-ui/core/NativeSelect';
+import { OutlinedInput } from '@material-ui/core';
 
 export default class TabelArtikel extends React.Component{
   constructor(props){
@@ -14,8 +16,10 @@ export default class TabelArtikel extends React.Component{
       Judul:'',
       Isi:'',
       Foto:'',
-      idpenulis:'1',
-      idkategori:'1',
+      idpenulis:'',
+      idkategori:'',
+      kategoriartikel:[],
+      Kat:'',
 
       //property table untuk disi pake API
       columns: [
@@ -32,10 +36,13 @@ export default class TabelArtikel extends React.Component{
       loading : true,
       modaladd:false,
       modalup:false,
+      modKat:false,
+      modKat1:false
     };
     this.handleSubmitAdd = this.handleSubmitAdd.bind(this);
     this.toggleU = this.toggleU.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.toggl = this.toggl.bind(this);
     this.resetstate =  this.resetstate.bind(this);
   }
 
@@ -44,7 +51,7 @@ handleSubmitAdd (e){
   e.preventDefault();
   const apiurl = 'https://zav-wawi.herokuapp.com/api/artikel/create'
   const addartikel ={
-    id_mst_penulis : this.state.idpenulis,
+    id_mst_penulis : this.props.id_pengguna,
     judul_artikel : this.state.Judul,
     isi_artikel : this.state.Isi,
     id_kategori_artikel : this.state.idkategori,
@@ -58,6 +65,20 @@ handleSubmitAdd (e){
   this.resetstate();
   this.toggle();
 }
+handleSubmitKat (e){
+  e.preventDefault();
+  const apiurl1 = 'https://zav-wawi.herokuapp.com/api/kategori/create'
+  const addartikel ={
+    kategori : this.state.Kat    
+  };
+  axios.post(apiurl1, addartikel)
+  .then(res => {
+    this.fetchdata();
+    console.log(res.data);
+  })
+  this.resetstate();
+  this.toggl();
+}
 
 //ketika submit dari form artikel (PUT DATA)
 handleSubmitPut (e){
@@ -67,7 +88,7 @@ handleSubmitPut (e){
   console.log(apiurl + id);
   debugger
   const putartikel ={
-    id_mst_penulis : this.state.idpenulis,
+    id_mst_penulis : this.props.id_pengguna,
     judul_artikel : this.state.Judul,
     isi_artikel : this.state.Isi,
     id_kategori_artikel : this.state.idkategori,
@@ -98,6 +119,7 @@ fetchdata = () =>{
   .catch(error => {
     console.log(error);
   });
+  this.kategoriartikell();
 }
 componentDidMount(){
     return this.fetchdata();
@@ -108,14 +130,15 @@ componentDidMount(){
 // kumpulan handle onclik/onchange
 
 //reset state
-resetstate(){
+resetstate = ()=>{
 this.setState({
   id : '',
   Judul:'',
   Isi:'',
   Foto:'',
-  idpenulis:'1',
-  idkategori:'1'
+  idpenulis:'',
+  idkategori:'',
+  Kat:'',
 })
 }
 // untuk buka modal add
@@ -123,6 +146,12 @@ toggle() {
     this.setState(prevState => ({
       modaladd: !prevState.modaladd    
     }));
+    this.resetstate();
+};
+toggl() {
+  this.setState(prevState => ({
+    modKat: !prevState.modKat    
+  }));
 };
 
 toggleU() {
@@ -136,6 +165,21 @@ toggleU() {
       [event.target.name]: event.target.value
   })
   };
+
+kategoriartikell = () =>{
+  const url ='https://zav-wawi.herokuapp.com/api/kategori/all';
+        axios.get(url)
+        .then(response => {
+          this.setState({
+            kategoriartikel: response.data.data
+          });
+          console.log(response.data.data);
+          
+        })
+        .catch(error => {
+         alert(error);
+        });
+}
 handleDel = event =>{
   event.preventDefault();
   axios.delete(`https://zav-wawi.herokuapp.com/api/artikel/delete/artikelid=${this.state.id}`)
@@ -164,7 +208,12 @@ rowClik = (e,rowData) => {
 
 
 render () {
+
+
 //content
+let jadwal = this.state.kategoriartikel.map(function(item, i){
+  return <option key={i} value={item.id_kategori_artikel}>{item.kategori}</option>;
+})
   let content;
   if (this.state.loading) {
     content = <div>Loading...</div>;
@@ -180,6 +229,7 @@ render () {
           <MTableToolbar {...props} />
           <div style={{padding: '0px 10px'}}>
             <Chip label="+ Tambah Artikel" onClick={this.toggle}  style={{marginLeft: 5}}/>
+            <Chip label="+ Tambah Kategori Artikel" onClick={this.toggl}  style={{marginLeft: 5}}/>
           </div>
         </div>
       ),
@@ -195,23 +245,29 @@ render () {
       <Modal isOpen={this.state.modaladd} toggle={this.toggle} className="modal-lg">
           <ModalHeader toggle={this.toggle}><b>Tambah Artikel</b></ModalHeader>
           <form method="post" onSubmit ={(e) => this.handleSubmitAdd(e)}  >
-          <ModalBody>
-            {/* <div>
-              <pre> debug judul : {this.state.Judul}</pre>
-              <pre> debug isi : {this.state.Isi}</pre>
-              <pre> debug foto : {this.state.Foto}</pre>
-              <pre> debug idpenuls : {this.state.idpenulis}</pre>
-              <pre> debug idkate : {this.state.idkategori}</pre>
-            </div> */}
-
-            <TextField
+          <ModalBody>         
+          <NativeSelect id="select"
+              value={this.state.idkategori}
+              onChange={this.handleChangeAdd}
+              input={<OutlinedInput name="id_kategori" value={this.state.idkategori} fullWidth id="outlined-age-simple"  />}
+              >
+              {jadwal}
+              </NativeSelect>
+              <TextField
               name="Judul"
               id="outlined-name"
               label="Judul Artikel"
               margin="normal"
+              fullWidth
               variant="outlined"
               onChange={this.handleChangeAdd}
             />
+        
+            
+           
+           
+ 
+
         <br/>
             <TextField
               id="outlined-multiline-static"
@@ -253,17 +309,23 @@ render () {
           <form method="post" onSubmit ={(e) => this.handleSubmitPut(e)}  >
           <ModalBody>
          
-            <TextField
+          <NativeSelect id="select"
+              value={this.state.idkategori}
+              onChange={this.handleChangeAdd}
+              input={<OutlinedInput name="idkategori" value={this.state.idkategori} fullWidth id="outlined-age-simple"  />}
+              >
+              {jadwal}
+              </NativeSelect>
+              <TextField
               name="Judul"
               id="outlined-name"
               label="Judul Artikel"
               margin="normal"
+              fullWidth
               variant="outlined"
-              defaultValue=''
               value = {this.state.Judul}
               onChange={this.handleChangeAdd}
             />
-        <br/>
             <TextField
               id="outlined-multiline-static"
               label="Isi Artikel"
@@ -300,6 +362,32 @@ render () {
           </form>
         </Modal>
 
+        <Modal isOpen={this.state.modKat} toggle={this.toggl} className="modal-lg">
+          <ModalHeader toggle={this.toggl}><b>Kategori Artikel </b></ModalHeader>
+          <form method="post" onSubmit ={(e) => this.handleSubmitKat(e)}  >
+          <ModalBody>
+            
+          <div className="row" id="input2">
+          <TextField
+              name="Kat"
+              id="outlined-name"
+              label="Kategori"
+              margin="normal"
+              fullWidth
+              variant="outlined"
+              value = {this.state.Kat}
+              onChange={this.handleChangeAdd}
+            />  
+          </div>
+            
+           
+          </ModalBody>
+          <ModalFooter>
+            
+            <Button type="submit" color="green">Submit</Button>
+          </ModalFooter>
+          </form>
+        </Modal>
 
 
 

@@ -606,18 +606,6 @@ export default class InputPasienMonik extends React.Component{
         </div>
         <div className="col-md-2">
             <TextField
-            name="th"
-            id="outlined-name"
-            label="Th"
-            fullWidth
-            margin="normal"
-            variant="outlined"
-            value={this.state.th}
-            onChange={this.handleChangeAdd}
-            />
-        </div>
-        <div className="col-md-2">
-            <TextField
             name="rh"
             id="outlined-name"
             label="Rh"
@@ -704,38 +692,6 @@ export default class InputPasienMonik extends React.Component{
                                     />
                             </div>
                         </div>
-
-
-
-                        {/* <div>
-              <pre> debug kode_aksi_monik : {'TR.22'+this.state.today}</pre>
-              <pre> debug id_jadwal_monik : {this.state.id_jadwal}</pre>
-              <pre> debug id_mst_pasien_monik : {this.state.id}</pre>
-              <pre> debug alamat_lengkap : {this.state.alamat}</pre>
-              <pre> debug kelurahan : {this.state.kelurahan}</pre>
-              <pre> debug kecamatan : {this.state.kecamatan}</pre>
-              <pre> debug kabupaten_kota : {this.state.kabkot}</pre>
-              <pre> debug prov : {this.state.prov}</pre>
-              <pre> debug reg : {this.state.regional}</pre>
-              <pre> debug pemkes_umum : {this.state.pemkes}</pre>
-              <pre> debug pmt : {this.state.pmt}</pre>
-              <pre> debug usg : {this.state.usg}</pre>
-              <pre> debug penyuluhan : {this.state.penyeluhan}</pre>
-              <pre> debug metabolik : {this.state.metabolik}</pre>
-              <pre> debug bb : {this.state.berat}</pre>
-              <pre> debug tb : {this.state.tinggi}</pre>
-              <pre> debug rh : {this.state.rh}</pre>
-              <pre> debug td : {this.state.tekanandarah}</pre>
-              <pre> debug au : {this.state.asamurat}</pre>
-              <pre> debug gul : {this.state.guladarah}</pre>
-              <pre> debug kol : {this.state.koles}</pre>
-
-
-
-
-
-
-            </div> */}
            
           </ModalBody>
           <ModalFooter>

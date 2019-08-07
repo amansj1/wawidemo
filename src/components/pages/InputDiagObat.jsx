@@ -45,15 +45,47 @@ export default class InputDiagObat extends React.Component{
             jk:'',
             pekerjaan:'',
 
+            obat:[],
+            diagnosa:[],
 
+            colobat:[
+            {title:'Nama Obat', field:'nama_obat'},
+            ],
+            coldiagnosa:[
+            {title:'Diagnosa', field:'diagnosa'},
+            ],
 
+            modalup:false,
             isOpenTrans:false,
             isOpenPasien:false,
-            loadingpasien:true
+            loadingpasien:true,
+            blank:true,
+            loading:true,
+
+            obat1:'',
+            obat2:'',
+            obat3:'',
+            diagnosa1:'',
+            diagnosa2:'',
+            diagnosa3:''
         }
+        this.toggleU = this.toggleU.bind(this);
     }    
-    
-    
+    handleChangeAdd = event =>{
+        this.setState({
+          [event.target.name]: event.target.value
+      })
+      };
+    resetstate =() =>{
+        this.setState({
+            obat1:'',
+            obat2:'',
+            obat3:'',
+            diagnosa1:'',
+            diagnosa2:'',
+            diagnosa3:''
+        })
+    }
     fetchdatapasien = () =>{
         const url ='https://zav-wawi.herokuapp.com/api/pasien_monik/all';
         axios.get(url)
@@ -72,13 +104,16 @@ export default class InputDiagObat extends React.Component{
       }
 
       fetchdatatrans = ()=>{
+       
         const id = this.state.id_pasien;
         const url ='https://zav-wawi.herokuapp.com/api/trans_monik/bypasienmonikid=';
        
         axios.get(url+id)
         .then(response => {
           this.setState({
-            datatrans: response.data.data
+            datatrans: response.data.data,
+            blank:false,
+            loding:false
           });
           console.log(response.data.data);
           
@@ -86,6 +121,7 @@ export default class InputDiagObat extends React.Component{
         .catch(error => {
          alert(error);
         });
+
         
       }
 
@@ -110,26 +146,93 @@ export default class InputDiagObat extends React.Component{
             pendidikan:rowData.pendidikan,
             jk:rowData.gender,
             golongan_darah:rowData.golongan_darah,
-            isOpenPasien:true
+            isOpenPasien:true,
+            blank:true
         });
 
     }
     rowClikTrans =(e,rowData)=>{
         e.preventDefault();
         this.setState({
-            id_trans:rowData.id_mst_trans_monik
-
+            id_trans:rowData.id_mst_trans_monik,
+            obat:rowData.obat_pm,
+            diagnosa:rowData.diagnosa_pm
         })
+    this.toggleU();
+   
     }
+    handleSubmitDiagObat(e){
+        e.preventDefault();
+        const apiurl = 'https://zav-wawi.herokuapp.com/api/diagnosa_pms/create'
+        const addpasien ={
+            id_trans_monik: this.state.id_trans,
+            diagnosa:[
+                {diagnosa: this.state.diagnosa1},
+                {diagnosa: this.state.diagnosa2},
+                {diagnosa: this.state.diagnosa3},
+                ]
+        };
+        axios.post(apiurl, addpasien)
+        .then(res => {
+      
+          console.log(res.data);
+        });
+        const apiurl1 = 'https://zav-wawi.herokuapp.com/api/obat_pms/create'
+        const addobat ={
+            id_trans_monik: this.state.id_trans,
+            obat:[
+                {nama_obat: this.state.obat1},
+                {nama_obat: this.state.obat2},
+                {nama_obat: this.state.obat3},
+                ]
+        };
+        axios.post(apiurl1, addobat)
+        .then(res => {
+  
+          console.log(res.data);
+        });
 
-    
+        this.fetchdatatrans();
+        this.resetstate();
+        this.toggleU();
+
+    }
+    toggleU() {
+        this.setState(prevState => ({
+          modalup: !prevState.modalup    
+        }));
+      }
     
     
     
     
     
     render(){
+     
         let content;
+        let tabeltrans;
+        let loding;
+        if(this.state.loading){
+            loding=<div>Loading data</div>
+        }else{
+            loding= <MTable 
+            title="Tabel Pasien"
+            columns={this.state.columnpasien}
+            data={this.state.datapasien}
+            onRowClick={this.rowClikPasien}
+            />
+        }
+
+        if(this.state.blank){
+            tabeltrans=<br/>
+        }else{
+            tabeltrans =   <MTable 
+            title={"Tabel Trans Monik "+this.state.nama}
+            columns={this.state.columntrans}
+            data={this.state.datatrans}
+            onRowClick={this.rowClikTrans}
+            />
+        }
         if(this.state.isOpenPasien){
 
             content =
@@ -245,13 +348,8 @@ export default class InputDiagObat extends React.Component{
                         </div>
                         <br/>
                         <br/>
-
-                    <MTable 
-                    title={"Tabel Trans Monik "+this.state.nama}
-                    columns={this.state.columntrans}
-                    data={this.state.datatrans}
-                    onRowClick={this.rowClikTrans}
-                    />
+        
+                  {tabeltrans}
                 </div>
                 <br/>
             </Paper>
@@ -266,15 +364,123 @@ export default class InputDiagObat extends React.Component{
             </div>
         }else{
             content =
-            <MTable 
-            title="Tabel Pasien"
-            columns={this.state.columnpasien}
-            data={this.state.datapasien}
-            onRowClick={this.rowClikPasien}
-            />
+            <div>{loding}</div>
+            
         }
+
+       
         return(
-            <div>{content}</div>
+            <div>{content}
+            <Modal isOpen={this.state.modalup} toggle={this.toggleU} className="modal-lg">
+          <ModalHeader toggle={this.toggleU}><b>Input Diagnosa dan Obat</b></ModalHeader>
+          <form method="post" onSubmit ={(e) => this.handleSubmitDiagObat(e)}  >
+          <ModalBody>
+          <div className="row" id="input2">
+                <div className="col-md-7">
+                   <TextField
+                    name="diagnosa1"
+                    id="outlined-name"
+                    label="Diagnosa"
+                    fullWidth
+                    value={this.state.diagnosa1}
+                    margin="normal"
+                    variant="outlined"
+                    onChange={this.handleChangeAdd}
+                   />
+                </div>
+                <div className="col-md-4">
+                   <TextField
+                    name="obat1"
+                    id="outlined-name"
+                    label="Obat"
+                    fullWidth
+                    margin="normal"
+                    variant="outlined"
+                    value={this.state.obat1}
+                    onChange={this.handleChangeAdd}
+                    />
+                </div>             
+         </div>
+         <div className="row" id="input2">
+                <div className="col-md-7">
+                   <TextField
+                    name="diagnosa2"
+                    id="outlined-name"
+                    label="Diagnosa"
+                    fullWidth
+                    value={this.state.diagnosa2}
+                    margin="normal"
+                    variant="outlined"
+                    onChange={this.handleChangeAdd}
+                   />
+                </div>
+                <div className="col-md-4">
+                   <TextField
+                    name="obat2"
+                    id="outlined-name"
+                    label="Obat"
+                    fullWidth
+                    margin="normal"
+                    variant="outlined"
+                    value={this.state.obat2}
+                    onChange={this.handleChangeAdd}
+                    />
+                </div>             
+         </div>
+         <div className="row" id="input2">
+                <div className="col-md-7">
+                   <TextField
+                    name="diagnosa3"
+                    id="outlined-name"
+                    label="Diagnosa"
+                    fullWidth
+                    value={this.state.diagnosa3}
+                    margin="normal"
+                    variant="outlined"
+                    onChange={this.handleChangeAdd}
+                   />
+                </div>
+                <div className="col-md-4">
+                   <TextField
+                    name="obat3"
+                    id="outlined-name"
+                    label="Obat"
+                    fullWidth
+                    margin="normal"
+                    variant="outlined"
+                    value={this.state.obat3}
+                    onChange={this.handleChangeAdd}
+                    />
+                </div>             
+         </div>
+
+        <br/>
+        <div className="row" id="input2">
+        <div className="col-md-6">
+        <MTable 
+                title="Tabel Diagnosa"
+                columns={this.state.coldiagnosa}
+                data={this.state.diagnosa}
+              
+         />
+         </div>
+         <div className="col-md-5">
+          <MTable 
+                title="Tabel Obat"
+                columns={this.state.colobat}
+                data={this.state.obat}
+               
+         />
+         </div>
+         </div>
+
+          </ModalBody>
+          <ModalFooter>
+            <Button type="submit" color="green">Submit</Button>
+          </ModalFooter>
+          </form>
+        </Modal>
+        </div>
             
         )
     }
