@@ -297,7 +297,7 @@ export default class InputPasienMonik extends React.Component{
         
             isupdate = <div>
             <Button type="button" color="white" onClick={this.resetstate} >Tambah Baru</Button>
-            <Button type="button" color="grey" onClick={this.toggleU} >Trans Monik</Button>
+            <Button type="button" color="grey" onClick={this.toggleU} >Input Detil</Button>
             <Button type="button" color="red" onClick={(e) => this.handleDelPasien(e)} >Delete</Button>
             <Button type="submit" color="green" >Update</Button>
         </div>
@@ -310,7 +310,7 @@ export default class InputPasienMonik extends React.Component{
         }
 
         let jadwal = this.state.jadwal_monik.map(function(item, i){
-            return <option key={i} value={item.id_jadwal_monik}>{item.kegiatan}}</option>;
+            return <option key={i} value={item.id_jadwal_monik}>{item.kegiatan}</option>;
           })
 
         if(this.state.loading){
@@ -468,11 +468,11 @@ export default class InputPasienMonik extends React.Component{
                 </NativeSelect>
          </div>
          <div className="row" id="input2">
-        <div className="col-md-3">
+        <div className="col-md-11">
             <TextField
             name="alamat"
             id="outlined-name"
-            label="Alamat"
+            label="Alamat Lengkap"
             fullWidth
             margin="normal"
             variant="outlined"
@@ -480,6 +480,8 @@ export default class InputPasienMonik extends React.Component{
             onChange={this.handleChangeAdd}
             />
         </div>
+        </div>
+        <div className="row" id="input2">
         <div className="col-md-3">
             <TextField
             name="kelurahan"
