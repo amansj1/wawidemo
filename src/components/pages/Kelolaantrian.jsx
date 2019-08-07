@@ -43,6 +43,8 @@ constructor(props){
           ],
           datacon:[],
           datapro:[],
+          datadokter:[],
+          datapoli:[],
     }
 }
 fetchdata = () =>{
@@ -89,9 +91,37 @@ fetchdata = () =>{
     });
 
 
-
+this.getdatadokter();
 
     
+  }
+
+  getdatadokter = ()=>{
+    const url ='https://zav-wawi.herokuapp.com/api/dokter/bypuskesmasid=';
+    axios.get(url + this.props.ipus)
+    .then(response => {
+      this.setState({
+        datadokter: response.data.data,
+      });
+      console.log(response.data.data);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+
+    const url1 ='https://zav-wawi.herokuapp.com/api/poli/all';
+    axios.get(url1)
+    .then(response => {
+      this.setState({
+        datapoli: response.data.data,
+      });
+      console.log(response.data.data);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+
+
   }
   componentDidMount(){
       return this.fetchdata();
@@ -156,7 +186,13 @@ fetchdata = () =>{
 
 
     render(){
-     
+      let dokter = this.state.datadokter.map(function(item, i){
+        return <option key={i} value={item.id}>{item.name}</option>;
+      });
+      let poli = this.state.datapoli.map(function(item, i){
+        return <option key={i} value={item.id_mst_jenis_poli}>{item.nama_poli}</option>;
+      });
+
         let content;
         if (this.state.loading) {
             content = <div>Loading...</div>;
@@ -206,16 +242,7 @@ fetchdata = () =>{
                                 input={<OutlinedInput name="poliid" value={this.state.poliid} fullWidth id="outlined-age-simple"  />}
                             >
                                 <option>- Pilih Poli -</option>
-                                <option value={1}>Poli -1</option>
-                                <option value={2}>Poli -2</option>
-                                <option value={3}>Poli -3</option>
-                                <option value={4}>Poli -4</option>
-                                <option value={5}>Poli -5</option>
-                                <option value={6}>Poli -6</option>
-                                <option value={7}>Poli -7</option>
-                                <option value={8}>Poli -8</option>
-                                <option value={9}>Poli -9</option>
-                                <option value={10}>Poli -10</option>
+                               {poli}
                             </NativeSelect>
                         </div>
                         <div className="col-md-3">
@@ -226,16 +253,7 @@ fetchdata = () =>{
                                 input={<OutlinedInput name="dokterid" value={this.state.dokterid} fullWidth id="outlined-age-simple"  />}
                             >
                                 <option>- Id Dokter -</option>
-                                <option value={1}>Dokter -1</option>
-                                <option value={2}>Dokter -2</option>
-                                <option value={3}>Dokter -3</option>
-                                <option value={4}>Dokter -4</option>
-                                <option value={5}>Dokter -5</option>
-                                <option value={6}>Dokter -6</option>
-                                <option value={7}>Dokter -7</option>
-                                <option value={8}>Dokter -8</option>
-                                <option value={9}>Dokter -9</option>
-                                <option value={10}>Dokter -10</option>
+                                {dokter}
                             </NativeSelect>
                         </div>
                         <Button type="submit" color="grey" onClick={this.cek} >Cek Antrian</Button>
