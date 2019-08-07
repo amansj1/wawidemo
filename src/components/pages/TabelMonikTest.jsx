@@ -24,6 +24,7 @@ export default class TabelMonikTest  extends React.Component{
           tgl:'',
           long: 0,
           lat: 0,
+          ismapsopen:false,
     
           //property table untuk disi pake API
           columns: [
@@ -48,6 +49,7 @@ export default class TabelMonikTest  extends React.Component{
       }
 
 // ambil data ke API (GET DATA)
+
 fetchdata = () =>{
   const url ='https://zav-wawi.herokuapp.com/api/jadwal_monik/all';
   axios.get(url)
@@ -115,6 +117,7 @@ resetstate(){
 
   rowClik = (e,rowData) => {
     e.preventDefault();
+
     this.setState({
       id : rowData.id_jadwal_monik,
       idmonik: rowData.id_mst_monik,
@@ -122,9 +125,10 @@ resetstate(){
       selesai:rowData.jam_selesai_monik,
       kegiatan : rowData.kegiatan,
       tgl: rowData.tgl_kegiatan,
-      long: parseFloat(rowData.long_monik),
-      lat: parseFloat(rowData.lat_monik),
-    });
+      long: rowData.long_monik,
+      lat: rowData.lat_monik,
+      ismapsopen:false
+    })
     this.toggleU();
   //isi data state nya pake roeData.var
     
@@ -187,22 +191,39 @@ resetstate(){
     })
     this.resetstate();
   }
-  handleLatChange = (value)=>{
+  handleLatChange = (v1)=>{
     this.setState({
-      lat : value
+      lat : v1
     })
    
   }
-  handleLngChange = (newvalue)=>{
+  handleLngChange = (v2)=>{
     this.setState({
-      long : newvalue
+      long : v2
     })
   }
-
+mapsopen = () =>{
+this.setState({
+ismapsopen:true
+})
+}
 
 render(){
     
   let content;
+  let map;
+  if(this.state.ismapsopen){
+    map=<Maps
+    google={this.props.google}
+    center={{lat: this.state.lat, lng: this.state.long}}
+    height='300px'
+    zoom={15}
+    onLatChange ={(value)=> this.handleLatChange(value)}
+    onLngChange ={(value)=> this.handleLngChange(value)}
+    /> 
+  }else{
+    map= <Button type="button" color="grey" onClick={this.mapsopen} >Lihat Maps</Button>
+  }
   if (this.state.loading) {
     content = <div>Loading...</div>;
   } else { 
@@ -214,20 +235,14 @@ render(){
         <div className="formpad">
         <h6 className="MuiTypography-root MuiTypography-h6">Update Kegiatan Monik {this.state.id} </h6>
         <br/>
-        <Maps
-        google={this.props.google}
-        center={{lat: this.state.lat, lng: this.state.long}}
-        height='300px'
-        zoom={15}
-        onLatChange ={(value)=> this.handleLatChange(value)}
-        onLngChange ={(value)=> this.handleLngChange(value)}
-        /> <br/><br/>
+     
          <form method="post" onSubmit ={(e) => this.handleSubmitPut(e)}  >
+         
         <TextField
               name="kegiatan"
               id="outlined-name"
               label="Kegiatan"
-              width = '50%'
+              fullWidth
               margin="normal"
               variant="outlined"
               value ={this.state.kegiatan}
@@ -274,7 +289,7 @@ render(){
               label="Waktu Mulai"
               type="time"
               value = {this.state.mulai}
-              defaultValue="07:30"
+              defaultValue="00:00"
               InputLabelProps={{
                 shrink: true,
               }}
@@ -290,7 +305,7 @@ render(){
               name="selesai"
               type="time"
               value = {this.state.selesai}
-              defaultValue="07:30"
+              defaultValue="00:00"
               InputLabelProps={{
                 shrink: true,
               }}
@@ -300,8 +315,10 @@ render(){
               onChange={this.handleChangeAdd}
 
             />
-          <br/>
-          <br/>
+            <br/>
+            
+              {map}
+          <br/><br/><br/>
               <div className="put">
               <Button type="button" color="red" onClick={(e) => this.handleDel(e)}>Delete</Button>
               <Button type="submit" color="green" >Update</Button>
@@ -338,16 +355,12 @@ render(){
     <div>
        <Paper className="paper" >
         <div className="formpad">
+
+        <h6 className="MuiTypography-root MuiTypography-h6">Input Kegiatan Monik </h6>
+        <br/>
     <form method="post" onSubmit ={(e) => this.handleSubmitAdd(e)}  >
 
-    <Maps
-      google={this.props.google}
-      center={{lat: -7.790073587756385, lng: 110.36041300469356}}
-      height='300px'
-      zoom={15}
-      onLatChange ={(value)=> this.handleLatChange(value)}
-      onLngChange ={(value)=> this.handleLngChange(value)}
-       /> <br/><br/>
+    
     
       <TextField
         name="kegiatan"
@@ -396,7 +409,7 @@ render(){
         name="mulai"
         label="Waktu Mulai"
         type="time"
-        defaultValue="07:30"
+        defaultValue="00:00"
         InputLabelProps={{
           shrink: true,
         }}
@@ -411,7 +424,7 @@ render(){
         label="Waktu Selesai"
         name="selesai"
         type="time"
-        defaultValue="07:30"
+        defaultValue="00:00"
         InputLabelProps={{
           shrink: true,
         }}
@@ -424,6 +437,16 @@ render(){
     <br/>
     <br/>
     <br/>
+    <pre>{this.state.long}</pre>
+    <pre>{this.state.lat}</pre>
+    <Maps
+      google={this.props.google}
+      center={{lat: -7.790074, lng: 110.360413}}
+      height='300px'
+      zoom={15}
+      onLatChange ={(v1)=> this.handleLatChange(v1)}
+      onLngChange ={(v2)=> this.handleLngChange(v2)}
+       /> <br/><br/>
     <div className="put1">
     <Button type="submit" color="green" >Submit</Button>
     </div>

@@ -29,6 +29,7 @@ export default class InputPasienMonik extends React.Component{
             jk:'',
             loading:true,
             isUpdate:false,
+
            
 
 
@@ -53,6 +54,7 @@ export default class InputPasienMonik extends React.Component{
             kecamatan:'',
             kabkot:'',
             prov:'',
+            regional:'',
             pemkes:'',
             pmt:'',
             usg:'',
@@ -67,22 +69,38 @@ export default class InputPasienMonik extends React.Component{
             koles:'',
             tekanandarah:'',
             modalup:false,
-            modalus:false,
-            id_trans:'',
-
-
-            diagnosa1:'',
-            diagnosa2:'',
-            diagnosa3:'',
-            obat1:'',
-            obat2:'',
-            obat3:'',
-
-
-
+        
         }
         this.toggleU = this.toggleU.bind(this);
-        this.toggles = this.toggles.bind(this);
+
+  
+        
+    }
+    resetstatetrans =() => {
+        this.setState({
+            golongan_darah:'',
+            id_jadwal:'',
+            alamat:'',
+            kelurahan:'',
+            kecamatan:'',
+            kabkot:'',
+            prov:'',
+            regional:'',
+            pemkes:'',
+            pmt:'',
+            usg:'',
+            penyeluhan:'',
+            metabolik:'',
+            tinggi:'',
+            berat:'',
+            th:'',
+            rh:'',
+            asamurat:'',
+            guladarah:'',
+            koles:'',
+            tekanandarah:'',
+
+        })
     }
     resetstate = ()=>{
         this.setState({
@@ -180,7 +198,7 @@ export default class InputPasienMonik extends React.Component{
         e.preventDefault();
         const apiurl = 'https://zav-wawi.herokuapp.com/api/trans_monik/create'
         const addtrans ={
-            kode_aksi_monik: this.state.today,
+            kode_aksi_monik: 'TR.00'+this.state.today,
             id_jadwal_monik: this.state.id_jadwal,
             id_mst_pasien_monik: this.state.id,
             alamat_lengkap: this.state.alamat,
@@ -188,7 +206,7 @@ export default class InputPasienMonik extends React.Component{
             kecamatan: this.state.kecamatan,
             kabupaten_kota: this.state.kabkot,
             provinsi: this.state.prov,
-            regional: this.state.prov,
+            regional: this.state.regional,
             pemkes_umum: this.state.pemkes,
             pmt: this.state.pmt,
             usg: this.state.usg,
@@ -207,44 +225,10 @@ export default class InputPasienMonik extends React.Component{
           console.log(res.data);
         })
 
+        this.resetstatetrans();
+        this.toggleU();
     }
-    handleSubmitObat(e){
-        e.preventDefault();
-        const apiurl = 'https://zav-wawi.herokuapp.com/api/obat_pms/create'
-        const addobat ={
-            id_trans_monik:this.state.id_trans,
-            obat:[
-                {nama_obat:this.state.obat1},
-                {nama_obat:this.state.obat2},
-                {nama_obat:this.state.obat3}
-                ]
-        };
-        axios.post(apiurl, addobat)
-        .then(res => {
-          this.fetchdata();
-          console.log(res.data);
-        });
-
-        const apiurl1 = 'https://zav-wawi.herokuapp.com/api/diagnosa_pms/create'
-        const adddiag ={
-            id_trans_monik:this.state.id_trans,
-            diagnosa:[
-                {diagnosa: this.state.diagnosa1},
-                {diagnosa: this.state.diagnosa2},
-                {diagnosa: this.state.diagnosa3}
-                ]
-        };
-        axios.post(apiurl1, adddiag)
-        .then(res => {
-          this.fetchdata();
-          console.log(res.data);
-        });
-        this.toggles();
-
-
-       
-
-    }
+    
     handleSubmit (e){
         e.preventDefault();
         if(this.state.isUpdate){
@@ -305,39 +289,22 @@ export default class InputPasienMonik extends React.Component{
           modalup: !prevState.modalup    
         }));
       }
-      toggles() {
-        this.setState(prevState => ({
-          modalus: !prevState.modalus    
-        }));
-      }
-    
     render(){
         let content;
         let isupdate;
 
         if(this.state.isUpdate){
-         if(this.state.id_trans>0){
-            isupdate = <div>
-            <Button type="button" color="white" onClick={this.resetstate} >Tambah Baru</Button>
-            <Button type="button" color="grey" onClick={this.toggles} >Input Diagnosa dan Obat</Button>
-            <Button type="button" color="grey" onClick={this.toggleU} >Trans Monik Baru</Button>
-            <Button type="button" color="red" onClick={(e) => this.handleDelPasien(e)} >Delete</Button>
-            <Button type="submit" color="green" >Update</Button>
-        </div>
-
-         }else{
+        
             isupdate = <div>
             <Button type="button" color="white" onClick={this.resetstate} >Tambah Baru</Button>
             <Button type="button" color="grey" onClick={this.toggleU} >Trans Monik</Button>
             <Button type="button" color="red" onClick={(e) => this.handleDelPasien(e)} >Delete</Button>
             <Button type="submit" color="green" >Update</Button>
         </div>
-
-         }
             
         }else{
             
-            isupdate = <div>
+             isupdate = <div>
                  <Button type="submit" color="green" >Submit</Button>
             </div>
         }
@@ -351,7 +318,7 @@ export default class InputPasienMonik extends React.Component{
         }else{
         content =    
                 <MTable 
-                title="Table Pasien"
+                title="Tabel Pasien"
                 columns={this.state.columns}
                 data={this.state.data}
                 onRowClick={this.rowClik}
@@ -551,6 +518,44 @@ export default class InputPasienMonik extends React.Component{
         </div>
         </div>
         <div className="row" id="input2">
+        <div className="col-md-3">
+            <TextField
+            name="prov"
+            id="outlined-name"
+            label="Provinsi"
+            fullWidth
+            margin="normal"
+            variant="outlined"
+            value={this.state.prov}
+            onChange={this.handleChangeAdd}
+            />
+        </div>
+        <div className="col-md-3">
+            <TextField
+            name="regional"
+            id="outlined-name"
+            label="Regional"
+            fullWidth
+            margin="normal"
+            variant="outlined"
+            value={this.state.regional}
+            onChange={this.handleChangeAdd}
+            />
+        </div>
+        <div className="col-md-3">
+            <TextField
+            name="pemkes"
+            id="outlined-name"
+            label="PEMKES"
+            fullWidth
+            margin="normal"
+            variant="outlined"
+            value={this.state.pemkes}
+            onChange={this.handleChangeAdd}
+            />
+        </div>
+        </div>
+        <div className="row" id="input2">
         <div className="col-md-2">
             <TextField
             name="pmt"
@@ -626,7 +631,7 @@ export default class InputPasienMonik extends React.Component{
         </div>
         
         <div className="row" id="input2">
-                            <div className="col-md-2">
+                          <div className="col-md-2">
                                     <TextField
                                     name="tinggi"
                                     id="outlined-name"
@@ -634,6 +639,7 @@ export default class InputPasienMonik extends React.Component{
                                     fullWidth
                                     margin="normal"
                                     variant="outlined"
+                                    value={this.state.tinggi}
                                     onChange={this.handleChangeAdd}
                                     />
                             </div>
@@ -645,6 +651,7 @@ export default class InputPasienMonik extends React.Component{
                                     fullWidth
                                     margin="normal"
                                     variant="outlined"
+                                    value={this.state.berat}
                                     onChange={this.handleChangeAdd}
                                     />
                             </div>
@@ -656,6 +663,7 @@ export default class InputPasienMonik extends React.Component{
                                     fullWidth
                                     margin="normal"
                                     variant="outlined"
+                                    value={this.state.tekanandarah}
                                     onChange={this.handleChangeAdd}
                                     />
                             </div>
@@ -667,6 +675,7 @@ export default class InputPasienMonik extends React.Component{
                                     fullWidth
                                     margin="normal"
                                     variant="outlined"
+                                    value={this.state.asamurat}
                                     onChange={this.handleChangeAdd}
                                     />
                             </div>
@@ -678,6 +687,7 @@ export default class InputPasienMonik extends React.Component{
                                     fullWidth
                                     margin="normal"
                                     variant="outlined"
+                                    value={this.state.guladarah}
                                     onChange={this.handleChangeAdd}
                                     />
                             </div>
@@ -688,12 +698,44 @@ export default class InputPasienMonik extends React.Component{
                                     label="Kolesterol"
                                     fullWidth
                                     margin="normal"
+                                    value={this.state.koles}
                                     variant="outlined"
                                     onChange={this.handleChangeAdd}
                                     />
                             </div>
                         </div>
 
+
+
+                        {/* <div>
+              <pre> debug kode_aksi_monik : {'TR.22'+this.state.today}</pre>
+              <pre> debug id_jadwal_monik : {this.state.id_jadwal}</pre>
+              <pre> debug id_mst_pasien_monik : {this.state.id}</pre>
+              <pre> debug alamat_lengkap : {this.state.alamat}</pre>
+              <pre> debug kelurahan : {this.state.kelurahan}</pre>
+              <pre> debug kecamatan : {this.state.kecamatan}</pre>
+              <pre> debug kabupaten_kota : {this.state.kabkot}</pre>
+              <pre> debug prov : {this.state.prov}</pre>
+              <pre> debug reg : {this.state.regional}</pre>
+              <pre> debug pemkes_umum : {this.state.pemkes}</pre>
+              <pre> debug pmt : {this.state.pmt}</pre>
+              <pre> debug usg : {this.state.usg}</pre>
+              <pre> debug penyuluhan : {this.state.penyeluhan}</pre>
+              <pre> debug metabolik : {this.state.metabolik}</pre>
+              <pre> debug bb : {this.state.berat}</pre>
+              <pre> debug tb : {this.state.tinggi}</pre>
+              <pre> debug rh : {this.state.rh}</pre>
+              <pre> debug td : {this.state.tekanandarah}</pre>
+              <pre> debug au : {this.state.asamurat}</pre>
+              <pre> debug gul : {this.state.guladarah}</pre>
+              <pre> debug kol : {this.state.koles}</pre>
+
+
+
+
+
+
+            </div> */}
            
           </ModalBody>
           <ModalFooter>
@@ -701,101 +743,6 @@ export default class InputPasienMonik extends React.Component{
           </ModalFooter>
           </form>
         </Modal>
-
-
-        <Modal isOpen={this.state.modalus} toggle={this.toggles} className="modal-lg">
-          <ModalHeader toggle={this.toggles}><b>#{this.state.id_trans} Input Diagnosa dan Obat {this.state.nama}</b></ModalHeader>
-          <form method="post" onSubmit ={(e) => this.handleSubmitObat(e)}  >
-          <ModalBody>
-         
-         
-    <div className="row" id="input2">
-        <div className="col-md-7">
-            <TextField
-            name="diagnosa1"
-            id="outlined-name"
-            label="Diagnosa"
-            fullWidth
-            margin="normal"
-            variant="outlined"
-            value={this.state.diagnosa1}
-            onChange={this.handleChangeAdd}
-            />
-        </div>
-        <div className="col-md-4">
-            <TextField
-            name="obat1"
-            id="outlined-name"
-            label="Obat"
-            fullWidth
-            margin="normal"
-            variant="outlined"
-            value={this.state.obat1}
-            onChange={this.handleChangeAdd}
-            />
-        </div>
-    </div>
-    <div className="row" id="input2">
-        <div className="col-md-7">
-            <TextField
-            name="diagnosa2"
-            id="outlined-name"
-            label="Diagnosa"
-            fullWidth
-            margin="normal"
-            variant="outlined"
-            value={this.state.diagnosa2}
-            onChange={this.handleChangeAdd}
-            />
-        </div>
-        <div className="col-md-4">
-            <TextField
-            name="obat2"
-            id="outlined-name"
-            label="Obat"
-            fullWidth
-            margin="normal"
-            variant="outlined"
-            value={this.state.obat2}
-            onChange={this.handleChangeAdd}
-            />
-        </div>
-    </div>
-    <div className="row" id="input2">
-        <div className="col-md-7">
-            <TextField
-            name="diagnosa3"
-            id="outlined-name"
-            label="Diagnosa"
-            fullWidth
-            margin="normal"
-            variant="outlined"
-            value={this.state.diagnosa3}
-            onChange={this.handleChangeAdd}
-            />
-        </div>
-        <div className="col-md-4">
-            <TextField
-            name="obat3"
-            id="outlined-name"
-            label="Obat"
-            fullWidth
-            margin="normal"
-            variant="outlined"
-            value={this.state.obat3}
-            onChange={this.handleChangeAdd}
-            />
-        </div>
-    </div>
-           
-          </ModalBody>
-          <ModalFooter>
-            <Button type="submit" color="green">Submit</Button>
-          </ModalFooter>
-          </form>
-        </Modal>
-
-
 
             </div>
         )
