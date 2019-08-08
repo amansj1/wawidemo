@@ -1,11 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import MTable from 'material-table';
-import NativeSelect from '@material-ui/core/NativeSelect';
-import { OutlinedInput } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
 import './Kelolaantrian.css';
-import { Button} from 'reactstrap';
+
 
 export default class AntrinApotek extends React.Component{
     constructor(props){
@@ -35,13 +32,13 @@ export default class AntrinApotek extends React.Component{
     fetchdata = () =>{
 
         const url ='https://zav-wawi.herokuapp.com/api/antrian_apotek/hasprocessed/apotekid=';
-        axios.get(url + this.state.idApotek)
+        axios.get(url + this.props.id_pengguna)
         .then(response => {
           this.setState({
             dataAntrian: response.data.data,
             loading: false
           });
-          console.log(response);
+          console.log(response.data.data);
         })
         .catch(error => {
           console.log(error);
@@ -49,7 +46,7 @@ export default class AntrinApotek extends React.Component{
     
     
         const url1 ='https://zav-wawi.herokuapp.com/api/antrian_apotek/haspicked/apotekid=';
-        axios.get(url1 + this.state.idApotek)
+        axios.get(url1 + this.props.id_pengguna)
         .then(response => {
           this.setState({
             dataSelesai: response.data.data,
@@ -72,6 +69,27 @@ export default class AntrinApotek extends React.Component{
        this._interval && window.clearInterval(this._interval);
      }
 
+     submit=()=>{
+       
+      
+
+     }
+
+     rowClik1 = (e,rowData) => {
+      e.preventDefault();
+      const url4 ='https://zav-wawi.herokuapp.com/api/antrian_apotek/picked/id_mst_antrian_apotek=';
+      console.log(url4+rowData.id_mst_antrian_apotek);
+      axios.get(url4+rowData.id_mst_antrian_apotek)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error.response);
+      });
+      this.fetchdata();
+      this.fetchdata();
+     
+    }
     render(){
         let content;
         if(this.state.loading){
@@ -81,7 +99,7 @@ export default class AntrinApotek extends React.Component{
             <div className="row">
             <div className="col-md-6">
                 <MTable 
-                title="Antrian Resep (Proses Antri)"
+                title="Antrian Resep (Klik Baris Untuk Diproses)"
                 columns={this.state.colAntrian}
                 data={this.state.dataAntrian}
                 onRowClick={this.rowClik1}

@@ -20,7 +20,7 @@ export default class DashApotek extends React.Component{
 				<figcaption>
 					<h2>Kelola <span>Antrian</span></h2>
 					<p>Mengelola antrian pengambilan obat di Apotek.</p>
-					<Link to="/kelolaantrianapotek"></Link>
+					<Link to="/apotekantri"></Link>
 				</figcaption>			
 			</figure>
             </div>

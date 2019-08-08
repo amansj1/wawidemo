@@ -23,6 +23,7 @@ import SideNavApotek from './components/sideNavApotek';
 import RoutesPuskesmas from './components/RoutesPuskesmas';
 import RoutesAdmin from './components/RoutesAdmin';
 import RoutesPenulis from './components/RoutesPenulis';
+import RoutesApotek from './components/RoutesApotek';
 
 // import Footer from './components/Footer';
 import './index.css';

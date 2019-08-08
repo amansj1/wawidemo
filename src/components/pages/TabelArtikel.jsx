@@ -86,7 +86,7 @@ handleSubmitPut (e){
   const id = this.state.id
   const apiurl = 'https://zav-wawi.herokuapp.com/api/artikel/update/artikelid='
   console.log(apiurl + id);
-  debugger
+
   const putartikel ={
     id_mst_penulis : this.props.id_pengguna,
     judul_artikel : this.state.Judul,
@@ -198,7 +198,7 @@ rowClik = (e,rowData) => {
     Isi: rowData.isi_artikel,
     Foto: rowData.foto_artikel,
     idpenulis:'',
-    idkategori:'',
+    idkategori:rowData.id_kategori_artikel,
   });
   this.toggleU();
 //isi data state nya pake roeData.var
