@@ -252,7 +252,7 @@ this.getdatadokter();
                                 onChange={this.handleChangeAdd}
                                 input={<OutlinedInput name="dokterid" value={this.state.dokterid} fullWidth id="outlined-age-simple"  />}
                             >
-                                <option>- Id Dokter -</option>
+                                <option>- Pilih Dokter -</option>
                                 {dokter}
                             </NativeSelect>
                         </div>
