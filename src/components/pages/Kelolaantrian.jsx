@@ -209,7 +209,7 @@ this.getdatadokter();
             <div className="row">
                 <div className="col-md-6">
                     <MTable 
-                    title="Pasien Konfirmasi Datang (Pilih Baris Untuk Diproses)"
+                    title="Konfirmasi Datang (Pilih Baris Untuk Diproses)"
                     columns={this.state.columnscon}
                     data={this.state.datacon}
                     onRowClick={this.rowClik1}

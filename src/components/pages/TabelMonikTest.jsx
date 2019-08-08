@@ -36,6 +36,7 @@ export default class TabelMonikTest  extends React.Component{
             {title:'Tanggal Kegiatan', field:'tgl_kegiatan'},
           ],
           data:[],
+          dataMonik:[],
     
           //manage tampilan
           loading : true,
@@ -64,6 +65,7 @@ fetchdata = () =>{
   .catch(error => {
    alert(error);
   });
+  this.datamonik();
 }
 componentDidMount(){
    this.fetchdata();
@@ -104,6 +106,7 @@ resetstate(){
     this.setState({
       modaladd: true   
     });
+   
 }
 
   toggleU() {
@@ -134,6 +137,20 @@ resetstate(){
     
   }
 
+  datamonik = () =>{
+    const url ='https://zav-wawi.herokuapp.com/api/monik/all';
+  axios.get(url)
+  .then(response => {
+    this.setState({
+      dataMonik: response.data.data,
+    });
+    console.log(response.data.data);
+    
+  })
+  .catch(error => {
+   alert(error);
+  }); 
+  }
   handleSubmitAdd (e){
     e.preventDefault();
     this.resetstate();
@@ -210,6 +227,8 @@ ismapsopen:true
 
 render(){
     
+  let monik = this.state.dataMonik.map(function(item, i){
+    return <option key={i} value={item.id_mst_monik}>{item.nama_monik}</option>; })
   let content;
   let map;
   if(this.state.ismapsopen){
@@ -249,25 +268,18 @@ render(){
               onChange={this.handleChangeAdd}
             />
         <br/>
-              <InputLabel htmlFor="age-native-helper">Monik</InputLabel>
+        <div className="row">
+        <div className="select">
               <NativeSelect
                 value={this.state.idmonik}
                 onChange={this.handleChangeAdd}
                 input={<Input name="idmonik" value={this.state.idmonik} id="age-native-helper" />}
               >
-                <option value="" />
-                <option value={1}>Monik - 1</option>
-                <option value={2}>Monik - 2</option>
-                <option value={3}>Monik - 3</option>
-                <option value={4}>Monik - 4</option>
-                <option value={5}>Monik - 5</option>
-                <option value={6}>Monik - 6</option>
-                <option value={7}>Monik - 7</option>
-                <option value={8}>Monik - 8</option>
-                <option value={9}>Monik - 9</option>
-                <option value={10}>Monik - 10</option>
+                <option > - Input Monik -</option>
+                {monik}
 
               </NativeSelect>
+              </div>
               &emsp; &emsp; &emsp;
 
               <TextField
@@ -315,14 +327,21 @@ render(){
               onChange={this.handleChangeAdd}
 
             />
+        </div>
+             
             <br/>
             
               {map}
           <br/><br/><br/>
-              <div className="put">
+              <div className="col-md-12">
+              <div className="tombol">
               <Button type="button" color="red" onClick={(e) => this.handleDel(e)}>Delete</Button>
               <Button type="submit" color="green" >Update</Button>
               </div>
+              </div>
+              <br/>
+              <br/>
+
           <br/>
           </form>
           </div>
@@ -372,23 +391,16 @@ render(){
         onChange={this.handleChangeAdd}
       />
   <br/>
+  <div className="row">
+        <div className="select">
         <InputLabel htmlFor="age-native-helper">Monik</InputLabel>
         <NativeSelect
           value={this.state.idmonik}
           onChange={this.handleChangeAdd}
           input={<Input name="idmonik" id="age-native-helper" />}
         >
-          <option value="" />
-          <option value={1}>Monik - 1</option>
-          <option value={2}>Monik - 2</option>
-          <option value={3}>Monik - 3</option>
-          <option value={4}>Monik - 4</option>
-          <option value={5}>Monik - 5</option>
-          <option value={6}>Monik - 6</option>
-          <option value={7}>Monik - 7</option>
-          <option value={8}>Monik - 8</option>
-          <option value={9}>Monik - 9</option>
-          <option value={10}>Monik - 10</option>
+          <option > - Input Monik -</option>
+                {monik}
 
         </NativeSelect>
         &emsp; &emsp; &emsp;
@@ -434,6 +446,9 @@ render(){
         onChange={this.handleChangeAdd}
 
       />
+          </div>
+        </div>
+        
     <br/>
     <br/>
     <br/>

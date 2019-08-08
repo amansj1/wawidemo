@@ -6,6 +6,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import TextField from '@material-ui/core/TextField';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import { OutlinedInput } from '@material-ui/core';
+import './TabelArtikel.css';
 
 export default class TabelArtikel extends React.Component{
   constructor(props){
@@ -42,7 +43,7 @@ export default class TabelArtikel extends React.Component{
     this.handleSubmitAdd = this.handleSubmitAdd.bind(this);
     this.toggleU = this.toggleU.bind(this);
     this.toggle = this.toggle.bind(this);
-    this.toggl = this.toggl.bind(this);
+
     this.resetstate =  this.resetstate.bind(this);
   }
 
@@ -148,11 +149,6 @@ toggle() {
     }));
     this.resetstate();
 };
-toggl() {
-  this.setState(prevState => ({
-    modKat: !prevState.modKat    
-  }));
-};
 
 toggleU() {
   this.setState(prevState => ({
@@ -186,7 +182,11 @@ handleDel = event =>{
   .then(res => {
     console.log(res);
     console.log(res.data);
-  })
+  });
+  this.resetstate();
+  this.toggleU();
+  this.fetchdata();
+
 
 }
 //handle yang ambil data dari table
@@ -221,6 +221,7 @@ let jadwal = this.state.kategoriartikel.map(function(item, i){
     content =  <MTable 
     title="Artikel"
     columns={this.state.columns}
+    size="small"
     data={this.state.data}
     onRowClick={this.rowClik}
     components={{
@@ -360,35 +361,6 @@ let jadwal = this.state.kategoriartikel.map(function(item, i){
           </ModalFooter>
           </form>
         </Modal>
-
-        <Modal isOpen={this.state.modKat} toggle={this.toggl} className="modal-lg">
-          <ModalHeader toggle={this.toggl}><b>Kategori Artikel </b></ModalHeader>
-          <form method="post" onSubmit ={(e) => this.handleSubmitKat(e)}  >
-          <ModalBody>
-            
-          <div className="row" id="input2">
-          <TextField
-              name="Kat"
-              id="outlined-name"
-              label="Kategori"
-              margin="normal"
-              fullWidth
-              variant="outlined"
-              value = {this.state.Kat}
-              onChange={this.handleChangeAdd}
-            />  
-          </div>
-            
-           
-          </ModalBody>
-          <ModalFooter>
-            
-            <Button type="submit" color="green">Submit</Button>
-          </ModalFooter>
-          </form>
-        </Modal>
-
-
 
     </div>
   )

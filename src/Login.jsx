@@ -77,7 +77,7 @@ class Login extends React.Component {
             loading:false
           });
 
-        }else if(this.state.provider==='admins'){
+        }else if(this.state.provider==='admin_moniks'){
           this.setState({
             token:res.data.access_token,
             nama:res.data.login_data.name,
@@ -144,7 +144,7 @@ class Login extends React.Component {
           </main>
         </div>
   
-    }else if(this.state.redirectToReferrer===true&&this.state.provider==='admins'){
+    }else if(this.state.redirectToReferrer===true&&this.state.provider==='admin_moniks'){
       content =   <div className="flexible-content">
       <TopNavigation onLogout = {(value)=> this.handleLogoutChange(value)} />
       <SideNavAdmin nama={this.state.nama} />
@@ -212,7 +212,7 @@ class Login extends React.Component {
                     >
                       <option value="">- Pilih Peran -</option>
                       <option value="puskesmases">Puskesmas</option>
-                      <option value="admins">Admin Monik</option>
+                      <option value="admin_moniks">Admin Monik</option>
                       <option value="penulises">Penulis</option>
                       <option value="apoteks">Apotek</option>
                       
