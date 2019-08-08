@@ -67,7 +67,7 @@ class Login extends React.Component {
       };
       axios.post(apiurl, put)
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         if(this.state.provider==='puskesmases'){
           this.setState({
             token:res.data.access_token,

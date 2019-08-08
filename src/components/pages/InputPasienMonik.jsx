@@ -126,7 +126,7 @@ export default class InputPasienMonik extends React.Component{
             data: response.data.data,
             loading: false
           });
-          console.log(response.data.data);
+        //   console.log(response.data.data);
           
         })
         .catch(error => {
@@ -142,7 +142,7 @@ export default class InputPasienMonik extends React.Component{
           this.setState({
             jadwal_monik: response.data.data
           });
-          console.log(response.data.data);
+        //   console.log(response.data.data);
           
         })
         .catch(error => {
@@ -184,7 +184,7 @@ export default class InputPasienMonik extends React.Component{
         axios.delete(`https://zav-wawi.herokuapp.com/api/pasien_monik/delete/pasien_monikid=${this.state.id}`)
         .then(res => {
             
-            console.log(res.data);
+            // console.log(res.data);
         })
        
         this.resetstate();
@@ -222,7 +222,7 @@ export default class InputPasienMonik extends React.Component{
         };
         axios.post(apiurl, addtrans)
         .then(res => {
-          console.log(res.data);
+        //   console.log(res.data);
         })
 
         this.resetstatetrans();
@@ -246,7 +246,7 @@ export default class InputPasienMonik extends React.Component{
             axios.put(apiurl + id, putpasien)
             .then(res => {
              
-              console.log(res.data);
+            //   console.log(res.data);
             })
             this.resetstate();
             this.setState({
@@ -272,7 +272,7 @@ export default class InputPasienMonik extends React.Component{
         axios.post(apiurl, addpasien)
         .then(res => {
           this.fetchdata();
-          console.log(res.data);
+        //   console.log(res.data);
         })
         this.resetstate();
 

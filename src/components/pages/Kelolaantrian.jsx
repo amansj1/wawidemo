@@ -56,10 +56,10 @@ fetchdata = () =>{
         data: response.data.data,
         loading: false
       });
-      console.log(response);
+      // console.log(response);
     })
     .catch(error => {
-      console.log(error);
+      console.log(error.response);
     });
 
 
@@ -70,10 +70,10 @@ fetchdata = () =>{
         datacon: response.data.data,
         loading: false
       });
-      console.log(response);
+      // console.log(response);
     })
     .catch(error => {
-      console.log(error);
+      console.log(error.response);
     });
 
 
@@ -84,10 +84,10 @@ fetchdata = () =>{
         datapro: response.data.data,
         loading: false
       });
-      console.log(response);
+      // console.log(response);
     })
     .catch(error => {
-      console.log(error);
+      console.log(error.response);
     });
 
 
@@ -103,10 +103,10 @@ this.getdatadokter();
       this.setState({
         datadokter: response.data.data,
       });
-      console.log(response.data.data);
+      // console.log(response.data.data);
     })
     .catch(error => {
-      console.log(error);
+      console.log(error.response);
     });
 
     const url1 ='https://zav-wawi.herokuapp.com/api/poli/all';
@@ -115,10 +115,10 @@ this.getdatadokter();
       this.setState({
         datapoli: response.data.data,
       });
-      console.log(response.data.data);
+      // console.log(response.data.data);
     })
     .catch(error => {
-      console.log(error);
+      console.log(error.response);
     });
 
 
@@ -146,10 +146,10 @@ this.getdatadokter();
         this.setState({
           loading: false
         });
-        console.log(response);
+        // console.log(response);
       })
       .catch(error => {
-        console.log(error);
+        console.log(error.response);
       });
       this.fetchdata();
   }
@@ -166,10 +166,10 @@ this.getdatadokter();
         this.setState({
           loading: false
         });
-        console.log(response);
+        // console.log(response);
       })
       .catch(error => {
-        console.log(error);
+        console.log(error.response);
       });
       this.fetchdata();
   }

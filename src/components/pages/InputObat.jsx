@@ -145,7 +145,7 @@ export default class InputObat extends React.Component{
       
         axios.post(apiurl1, addtrans)
         .then(res => {
-          console.log(res.data);
+          // console.log(res.data);
         }).catch(e =>{ console.log(e.response)})
         this.resetstate();
         this.fetchdata();

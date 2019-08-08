@@ -59,7 +59,7 @@ fetchdata = () =>{
       data: response.data.data,
       loading: false
     });
-    console.log(response.data.data);
+    // console.log(response.data.data);
     
   })
   .catch(error => {
@@ -144,7 +144,7 @@ resetstate(){
     this.setState({
       dataMonik: response.data.data,
     });
-    console.log(response.data.data);
+    // console.log(response.data.data);
     
   })
   .catch(error => {
@@ -178,7 +178,7 @@ resetstate(){
     e.preventDefault();
     const id = this.state.id
     const apiurl = 'https://zav-wawi.herokuapp.com/api/jadwal_monik/update/jadwalmonikid='
-    console.log(apiurl + id);
+    // console.log(apiurl + id);
     debugger
     const put ={
       id_mst_monik : this.state.idmonik,
@@ -192,7 +192,7 @@ resetstate(){
     axios.put(apiurl + id, put)
     .then(res => {
       this.fetchdata();
-      console.log(res.data);
+      // console.log(res.data);
       alert(res.data.note);
     })
     this.resetstate();
@@ -203,7 +203,7 @@ resetstate(){
     axios.delete(`https://zav-wawi.herokuapp.com/api/jadwal_monik/delete/jadwalmonikid=${this.state.id}`)
     .then(res => {
       this.fetchdata();
-      console.log(res);
+      // console.log(res);
       alert(res.data.note);
     })
     this.resetstate();

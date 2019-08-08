@@ -26,8 +26,7 @@ export default class TabelArtikel extends React.Component{
       columns: [
         {title:'ID', field:'id_mst_artikel'},
         {title:'Judul', field:'judul_artikel'},
-        {title:'Isi', field:'isi_artikel'},
-        {title:'Foto Artikel', field:'foto_artikel'},
+        {title:'Kategori Artikel', field:'kategori_artikel.kategori'},
         {title:'Nama Penulis', field:'mst_penulis.name'},
         {title:'Tanggal Dibuat', field:'created_at'},
       ],
@@ -61,8 +60,8 @@ handleSubmitAdd (e){
   axios.post(apiurl, addartikel)
   .then(res => {
     this.fetchdata();
-    console.log(res.data);
-  })
+    // console.log(res.data);
+  }).catch(e=>{console.log(e.response)})
   this.resetstate();
   this.toggle();
 }
@@ -75,8 +74,8 @@ handleSubmitKat (e){
   axios.post(apiurl1, addartikel)
   .then(res => {
     this.fetchdata();
-    console.log(res.data);
-  })
+    // console.log(res.data);
+  }).catch(e=>{console.log(e.response)})
   this.resetstate();
   this.toggl();
 }
@@ -86,7 +85,7 @@ handleSubmitPut (e){
   e.preventDefault();
   const id = this.state.id
   const apiurl = 'https://zav-wawi.herokuapp.com/api/artikel/update/artikelid='
-  console.log(apiurl + id);
+  // console.log(apiurl + id);
 
   const putartikel ={
     id_mst_penulis : this.props.id_pengguna,
@@ -98,8 +97,8 @@ handleSubmitPut (e){
   axios.put(apiurl + id, putartikel)
   .then(res => {
     this.fetchdata();
-    console.log(res.data);
-  })
+    // console.log(res.data);
+  }).catch(e=>{console.log(e.response)})
   this.resetstate();
   this.toggleU();
 }
@@ -115,7 +114,7 @@ fetchdata = () =>{
       data: response.data,
       loading: false
     });
-    console.log(response);
+    // console.log(response);
   })
   .catch(error => {
     console.log(error);
@@ -169,7 +168,7 @@ kategoriartikell = () =>{
           this.setState({
             kategoriartikel: response.data.data
           });
-          console.log(response.data.data);
+          // console.log(response.data.data);
           
         })
         .catch(error => {
@@ -180,8 +179,8 @@ handleDel = event =>{
   event.preventDefault();
   axios.delete(`https://zav-wawi.herokuapp.com/api/artikel/delete/artikelid=${this.state.id}`)
   .then(res => {
-    console.log(res);
-    console.log(res.data);
+    // console.log(res);
+    // console.log(res.data);
   });
   this.resetstate();
   this.toggleU();
@@ -221,8 +220,7 @@ let jadwal = this.state.kategoriartikel.map(function(item, i){
     content =  <MTable 
     title="Artikel"
     columns={this.state.columns}
-    size="small"
-    data={this.state.data}
+        data={this.state.data}
     onRowClick={this.rowClik}
     components={{
       Toolbar: props => (
@@ -262,11 +260,6 @@ let jadwal = this.state.kategoriartikel.map(function(item, i){
               variant="outlined"
               onChange={this.handleChangeAdd}
             />
-        
-            
-           
-           
- 
 
         <br/>
             <TextField
