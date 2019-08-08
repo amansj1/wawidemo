@@ -226,7 +226,7 @@ export default class InputObat extends React.Component{
         </Paper>
         <br/>
         <MTable 
-            title="Obat Terdaftar"
+            title="Obat Terdaftar (Pilih Baris Untuk Menambahkan Inventori)"
             columns={this.state.colGetObat}
             data={this.state.dataGetObat}
             onRowClick={this.rowClik}
@@ -249,7 +249,7 @@ export default class InputObat extends React.Component{
 
         }else{
             content =<div><MTable 
-            title="Obat Terdaftar"
+            title="Obat Terdaftar (Pilih Baris Untuk Menambahkan Inventori)"
             columns={this.state.colGetObat}
             data={this.state.dataGetObat}
             onRowClick={this.rowClik}
@@ -286,6 +286,7 @@ export default class InputObat extends React.Component{
                    />
                 </div>
                 <div className="col-md-4">
+                  <div className="select">
                 <NativeSelect id="select"
                     value={this.state.idJenis}
                     onChange={this.handleChangeAdd}
@@ -294,7 +295,7 @@ export default class InputObat extends React.Component{
                     <option>- Pilih Jenis Obat -</option>
                     {jenis}
                     </NativeSelect>
-                </div>             
+                </div> </div>            
          </div>
           </ModalBody>
           <ModalFooter>
