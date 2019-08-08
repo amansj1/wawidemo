@@ -197,8 +197,8 @@ rowClik = (e,rowData) => {
     Judul: rowData.judul_artikel,
     Isi: rowData.isi_artikel,
     Foto: rowData.foto_artikel,
-    idpenulis:'1',
-    idkategori:'1',
+    idpenulis:'',
+    idkategori:'',
   });
   this.toggleU();
 //isi data state nya pake roeData.var
@@ -229,7 +229,6 @@ let jadwal = this.state.kategoriartikel.map(function(item, i){
           <MTableToolbar {...props} />
           <div style={{padding: '0px 10px'}}>
             <Chip label="+ Tambah Artikel" onClick={this.toggle}  style={{marginLeft: 5}}/>
-            <Chip label="+ Tambah Kategori Artikel" onClick={this.toggl}  style={{marginLeft: 5}}/>
           </div>
         </div>
       ),
@@ -249,7 +248,7 @@ let jadwal = this.state.kategoriartikel.map(function(item, i){
           <NativeSelect id="select"
               value={this.state.idkategori}
               onChange={this.handleChangeAdd}
-              input={<OutlinedInput name="id_kategori" value={this.state.idkategori} fullWidth id="outlined-age-simple"  />}
+              input={<OutlinedInput name="idkategori" value={this.state.idkategori} fullWidth id="outlined-age-simple"  />}
               >
               {jadwal}
               </NativeSelect>

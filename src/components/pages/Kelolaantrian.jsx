@@ -16,8 +16,8 @@ constructor(props){
         rowklik:false,
         loading:true,
         puskesmasid:'',
-        poliid:4,
-        dokterid:5,
+        poliid:'',
+        dokterid:'',
         id_antrian:'',
         columns: [
             {title:'Id Antrian', field:'id_mst_antrian'},

@@ -8,6 +8,9 @@ import DashMonik from './pages/DashMonik';
 import TabelMonikTest from './pages/TabelMonikTest';
 import InputPasienMonik from './pages/InputPasienMonik';
 import InputDiagnosaObat from './pages/InputDiagObat';
+import DashApotek from './pages/DashApotek';
+import InputObat from './pages/InputObat';
+import AntriApotek from './pages/AntrinApotek';
 
 
 class Routes extends React.Component {
@@ -30,6 +33,10 @@ class Routes extends React.Component {
         {/* ArtikelRoute */}
         <Route path='/artikel' component={TabelArtikel} />
 
+        {/* Apotek */}
+        <Route path='/apotek' component={DashApotek} />
+        <Route path='/inputobat' component={InputObat} />
+        <Route path='/apotekantri' component={AntriApotek}/>
         </Switch>
     );
   }

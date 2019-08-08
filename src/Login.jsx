@@ -10,6 +10,7 @@ import TopNavigation from './components/topNavigation';
 import SideNavPuskesmas from './components/sideNavPuskesmas';
 import SideNavAdmin from './components/sideNavAdmin';
 import SideNavPenulis from './components/sideNavPenulis';
+import SideNavApotek from './components/sideNavApotek';
 
 // import {
 //   BrowserRouter as Router,
@@ -92,6 +93,15 @@ class Login extends React.Component {
             loading:false
           });
 
+        }else if (this.state.provider==='apoteks'){
+          this.setState({
+            token:res.data.access_token,
+            nama:res.data.login_data.nama_apotek,
+            id_pengguna:res.data.login_data.id_mst_apotek,
+            redirectToReferrer: true,
+            loading:false
+          });
+
         }else{
 
         }
@@ -152,6 +162,16 @@ class Login extends React.Component {
         />
       </main>
     </div>
+    }else if(this.state.redirectToReferrer===true&&this.state.provider==='apoteks'){
+      content =  <div className="flexible-content">
+      <TopNavigation onLogout = {(value)=> this.handleLogoutChange(value)}/>
+      <SideNavApotek nama={this.state.nama} />
+      <main id="content" className="p-5">
+        <RoutesApotek
+        id_pengguna={this.state.id_pengguna}
+        />
+      </main>
+    </div>
     }
     else if(this.state.loading===true){
       content = <div>loading page....</div>
@@ -193,6 +213,7 @@ class Login extends React.Component {
                       <option value="puskesmases">Puskesmas</option>
                       <option value="admins">Admin Monik</option>
                       <option value="penulises">Penulis</option>
+                      <option value="apoteks">Apotek</option>
                       
                     </NativeSelect>
                     &emsp; &emsp; &emsp;
