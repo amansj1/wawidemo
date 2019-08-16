@@ -26,8 +26,7 @@ export default class InputDiagObat extends React.Component{
 
             datatrans:[],
             columntrans:[
-                {title:'Tanggal Transaksi', field:'created_at'},
-                {title:'Id Jadwal Monik', field:'id_jadwal_monik'},
+                {title:'Tanggal Periksa', field:'created_at'},
                 {title:'Id Trans Monik', field:'id_mst_trans_monik'},
                 {title:'Berat Badan', field:'bb'},
                 {title:'Tinggi Badan', field:'tb'},
@@ -227,7 +226,7 @@ export default class InputDiagObat extends React.Component{
             tabeltrans=<br/>
         }else{
             tabeltrans =   <MTable 
-            title={"Tabel Trans Monik "+this.state.nama}
+            title={"Riwayat Periksa "+this.state.nama}
             columns={this.state.columntrans}
             data={this.state.datatrans}
             onRowClick={this.rowClikTrans}
@@ -330,18 +329,21 @@ export default class InputDiagObat extends React.Component{
                                 disabled
                                 input={<OutlinedInput name="pendidikan" value={this.state.pendidikan} fullWidth id="outlined-age-simple"  />}
                             >
-                                  <option>- Pendidikan -</option>
+                                 <option>- Pendidikan -</option>
+                                <option value='Tidak Ada'>Tidak Ada</option>
                                 <option value='SD'>SD</option>
                                 <option value='SMP'>SMP</option>
                                 <option value='SMA'>SMA</option>
-                                <option value='STRATA 1'>STRATA 1</option>
-                                <option value='STRATA 2'>STRATA 2</option>
+                                <option value='DIPLOMA'>DIPLOMA</option>
+                                <option value='SARJANA'>SARJANA</option>
+                                <option value='MASTER'>MASTER</option>
+                                <option value='DOKTORAL'>DOKTORAL</option>
                             </NativeSelect>
                             </div>
                         </div>
                         <div className="col-md-12">
                             <div className="tombol">
-                            <Button type="button" color="grey" onClick={this.fetchdatatrans} >Lihat Trans Monik </Button>
+                            <Button type="button" color="grey" onClick={this.fetchdatatrans} >Lihat Riwayat Periksa </Button>
                             </div>
                             <br/>
                            

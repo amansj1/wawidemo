@@ -429,11 +429,15 @@ export default class InputPasienMonik extends React.Component{
                                 input={<OutlinedInput name="pendidikan" value={this.state.pendidikan} fullWidth id="outlined-age-simple"  />}
                             >
                                 <option>- Pendidikan -</option>
+                                <option value='Tidak Ada'>Tidak Ada</option>
                                 <option value='SD'>SD</option>
                                 <option value='SMP'>SMP</option>
                                 <option value='SMA'>SMA</option>
-                                <option value='STRATA 1'>STRATA 1</option>
-                                <option value='STRATA 2'>STRATA 2</option>
+                                <option value='DIPLOMA'>DIPLOMA</option>
+                                <option value='SARJANA'>SARJANA</option>
+                                <option value='MASTER'>MASTER</option>
+                                <option value='DOKTORAL'>DOKTORAL</option>
+
                             </NativeSelect>
                             </div>
                         </div>

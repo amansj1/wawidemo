@@ -17,6 +17,24 @@ const sideNavAdmin = (props) => {
                         Admin Monik
                     </MDBListGroupItem>
                 </NavLink>
+                <NavLink to="/jadwalmonik" activeClassName="activeClass">
+                    <MDBListGroupItem>
+                        <MDBIcon icon="fas fa-map-marked-alt" className="mr-3"/>
+                        Tambah Jadwal Monik
+                    </MDBListGroupItem>
+                </NavLink>
+                <NavLink to="/pasienmonik" activeClassName="activeClass">
+                    <MDBListGroupItem>
+                    <MDBIcon icon="far fa-address-card" className="mr-3"/>
+                        Pendaftaran Pasien
+                    </MDBListGroupItem>
+                </NavLink>
+                <NavLink to="/inputdiagnosadanobat" activeClassName="activeClass">
+                    <MDBListGroupItem>
+                    <MDBIcon icon="fas fa-comment-medical" className="mr-3"/>
+                        Input Diagnosa dan Obat
+                    </MDBListGroupItem>
+                </NavLink>
             </MDBListGroup>
         </div>
     );
