@@ -172,6 +172,7 @@ export default class InputObat extends React.Component{
                         <div className="col-md-3">
                         <TextField
                         name="invStok"
+                        type="number"
                         id="outlined-name"
                         label="Jumlah Inventori Stok"
                         fullWidth
@@ -198,6 +199,7 @@ export default class InputObat extends React.Component{
                         <div className="col-md-4">
                         <TextField
                         name="hargaObat"
+                        type="number"
                         id="outlined-name"
                         label="Harga Obat"
                         fullWidth

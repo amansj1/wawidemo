@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem} from 'mdbreact';
 import { NavLink } from 'react-router-dom';
+import './topNavigation.css';
 
 class TopNavigation extends Component {
     constructor( props ){
@@ -32,7 +33,7 @@ class TopNavigation extends Component {
         return (
             <MDBNavbar className="flexible-navbar" expand="md" scrolling>
                 <MDBNavbarBrand href="/">
-                    <strong></strong>
+                  
                 </MDBNavbarBrand>
                 <MDBNavbarToggler onClick = { this.onClick } />
                 <MDBCollapse isOpen = { this.state.collapse } navbar>
@@ -40,7 +41,7 @@ class TopNavigation extends Component {
                     <MDBNavbarNav right>
                         <MDBNavItem onClick={this.onLogout}>
                         <NavLink exact={true} to="/" activeClassName="activeClass">
-                            <p className="border border-light rounded mr-1 nav-link Ripple-parent" rel="noopener noreferrer"  target="_blank"><i className="fas fa-power-off"></i>Logout</p>
+                            <p className="rounded mr-1 nav-link Ripple-parent" rel="noopener noreferrer"  target="_blank"><i className="fas fa-power-off"></i>Logout</p>
                         </NavLink>
                         </MDBNavItem>
                     </MDBNavbarNav>

@@ -34,10 +34,12 @@ export default class AntrinApotek extends React.Component{
         const url ='https://zav-wawi.herokuapp.com/api/antrian_apotek/hasprocessed/apotekid=';
         axios.get(url + this.props.id_pengguna)
         .then(response => {
+
           this.setState({
             dataAntrian: response.data.data,
             loading: false
           });
+          alert(response.data.note);
           // console.log(response.data.data);
         })
         .catch(error => {
@@ -52,6 +54,7 @@ export default class AntrinApotek extends React.Component{
             dataSelesai: response.data.data,
             loading: false
           });
+          alert(response.data.note);
           // console.log(response);
         })
         .catch(error => {
@@ -82,6 +85,7 @@ export default class AntrinApotek extends React.Component{
       axios.get(url4+rowData.id_mst_antrian_apotek)
       .then(response => {
         // console.log(response);
+        
       })
       .catch(error => {
         console.log(error.response);

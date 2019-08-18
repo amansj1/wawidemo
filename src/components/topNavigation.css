@@ -1,0 +1,27 @@
+.flexible-navbar{
+    /* background-image: linear-gradient(-80deg,#009688, #FFFFFF); */
+    background-color: #3daea3;
+    height:50px ;
+}
+.border .border-light .rounded .mr-1 .nav-link .Ripple-parent{
+    margin-left: 0;
+    background-color: #FFFFFF;
+    border-left-color: #FFFFFF;
+}
+.nav-item{
+    /* background-color: #FFFFFF; */
+    
+    background-color: #009688;
+    color:#FFFFFF;
+    width: 100%;
+    height: 41px;
+    border-radius: 17px;
+}
+.navbar-brand .active{
+    background-color:#FFFFFF;
+}
+.judul{
+    padding-top: 15px;
+    
+    color: #FFFFFF;
+}

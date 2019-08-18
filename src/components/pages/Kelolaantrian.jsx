@@ -6,7 +6,7 @@ import { OutlinedInput } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import './Kelolaantrian.css';
 import { Button} from 'reactstrap';
-
+import Swal from 'sweetalert2';
 
 
 export default class Kelolaantrian extends React.Component{
@@ -14,7 +14,7 @@ constructor(props){
     super(props);
     this.state ={
         rowklik:false,
-        loading:true,
+        loading:'',
         puskesmasid:'',
         poliid:'',
         dokterid:'',
@@ -84,6 +84,7 @@ fetchdata = () =>{
         datapro: response.data.data,
         loading: false
       });
+      Swal.hideLoading()
       // console.log(response);
     })
     .catch(error => {
@@ -146,6 +147,7 @@ this.getdatadokter();
         this.setState({
           loading: false
         });
+        Swal.hideLoading();
         // console.log(response);
       })
       .catch(error => {
@@ -166,6 +168,7 @@ this.getdatadokter();
         this.setState({
           loading: false
         });
+        Swal.hideLoading()
         // console.log(response);
       })
       .catch(error => {
@@ -195,12 +198,12 @@ this.getdatadokter();
 
         let content;
         if (this.state.loading) {
-            content = <div>Loading...</div>;
-        } else { 
+            content = Swal.showLoading();
+        } else if(this.state.loading===false) { 
             content =  
             <div>
             <MTable       
-            title="Antrian Pasien (Pilih Baris Untuk Konfirmasi)"
+            title="Antrian Pasien (Belum Datang)"
             columns={this.state.columns}
             data={this.state.data}
             onRowClick={this.rowClik}
@@ -209,7 +212,7 @@ this.getdatadokter();
             <div className="row">
                 <div className="col-md-6">
                     <MTable 
-                    title="Konfirmasi Datang (Pilih Baris Untuk Diproses)"
+                    title="Antrian Pasien (Sudah Datang)"
                     columns={this.state.columnscon}
                     data={this.state.datacon}
                     onRowClick={this.rowClik1}
@@ -217,20 +220,22 @@ this.getdatadokter();
                 </div>
                 <div className="col-md-6">
                 <MTable 
-                    title="Antrian Pasien (Sudah Diproses)"
+                    title="Antrian Pasien (Sudah Antri)"
                     columns={this.state.columnspro}
                     data={this.state.datapro}
                     />
                 </div>
             </div>
             </div>
+        } else{
+          content = <div/>
         }
         return(
             <div>
                 <Paper className="paper">
                     <br/>
                     <div className="isi">
-                    <h5>Input Terlebih dahulu</h5>
+                 
                     <div className="row">
                         
                        

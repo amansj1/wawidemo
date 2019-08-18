@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import { OutlinedInput } from '@material-ui/core';
 import './TabelArtikel.css';
+import Swal from 'sweetalert2';
 
 export default class TabelArtikel extends React.Component{
   constructor(props){
@@ -61,6 +62,7 @@ handleSubmitAdd (e){
   .then(res => {
     this.fetchdata();
     // console.log(res.data);
+    alert(res.data.note)
   }).catch(e=>{console.log(e.response)})
   this.resetstate();
   this.toggle();
@@ -75,6 +77,7 @@ handleSubmitKat (e){
   .then(res => {
     this.fetchdata();
     // console.log(res.data);
+    alert(res.data.note)
   }).catch(e=>{console.log(e.response)})
   this.resetstate();
   this.toggl();
@@ -98,6 +101,7 @@ handleSubmitPut (e){
   .then(res => {
     this.fetchdata();
     // console.log(res.data);
+    alert(res.data.note)
   }).catch(e=>{console.log(e.response)})
   this.resetstate();
   this.toggleU();
@@ -114,6 +118,7 @@ fetchdata = () =>{
       data: response.data,
       loading: false
     });
+    Swal.hideLoading()
     // console.log(response);
   })
   .catch(error => {
@@ -179,12 +184,14 @@ handleDel = event =>{
   event.preventDefault();
   axios.delete(`https://zav-wawi.herokuapp.com/api/artikel/delete/artikelid=${this.state.id}`)
   .then(res => {
+    this.fetchdata();
+    alert(res.data.note)
     // console.log(res);
     // console.log(res.data);
   });
   this.resetstate();
   this.toggleU();
-  this.fetchdata();
+  
 
 
 }
@@ -215,9 +222,11 @@ let jadwal = this.state.kategoriartikel.map(function(item, i){
 })
   let content;
   if (this.state.loading) {
-    content = <div>Loading...</div>;
+    content = Swal.showLoading() ;
   } else { 
-    content =  <MTable 
+    content =  
+    <div>
+      <MTable 
     title="Artikel"
     columns={this.state.columns}
         data={this.state.data}
@@ -233,6 +242,7 @@ let jadwal = this.state.kategoriartikel.map(function(item, i){
       ),
     }}
     />
+    </div>
 
   }
 

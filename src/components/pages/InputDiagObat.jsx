@@ -94,7 +94,7 @@ export default class InputDiagObat extends React.Component{
             loading: false
           });
         //   console.log(response.data.data);
-          
+        alert(response.data.note);
         })
         .catch(error => {
          alert(error);
@@ -114,6 +114,7 @@ export default class InputDiagObat extends React.Component{
             blank:false,
             loding:false
           });
+          alert(response.data.note);
         //   console.log(response.data.data);
           
         })
@@ -173,7 +174,7 @@ export default class InputDiagObat extends React.Component{
         };
         axios.post(apiurl, addpasien)
         .then(res => {
-      
+            alert(res.data.note);
         //   console.log(res.data);
         });
         const apiurl1 = 'https://zav-wawi.herokuapp.com/api/obat_pms/create'
@@ -187,11 +188,12 @@ export default class InputDiagObat extends React.Component{
         };
         axios.post(apiurl1, addobat)
         .then(res => {
-  
+        this.fetchdatatrans();
         //   console.log(res.data);
+        alert(res.data.note);
         });
 
-        this.fetchdatatrans();
+        
         this.resetstate();
         this.toggleU();
 
