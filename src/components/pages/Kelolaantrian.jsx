@@ -189,6 +189,13 @@ this.getdatadokter();
 
 
     render(){
+      let nuk;
+      if(this.state.poliid<0&&this.state.dokterid<0){
+        nuk = <Button type="submit" color="grey" onClick={this.cek} >Cek Antrian</Button>
+      }else{
+        nuk = <div/>
+      }
+
       let dokter = this.state.datadokter.map(function(item, i){
         return <option key={i} value={item.id}>{item.name}</option>;
       });
@@ -230,6 +237,8 @@ this.getdatadokter();
         } else{
           content = <div/>
         }
+
+        
         return(
             <div>
                 <Paper className="paper">
@@ -261,7 +270,7 @@ this.getdatadokter();
                                 {dokter}
                             </NativeSelect>
                         </div>
-                        <Button type="submit" color="grey" onClick={this.cek} >Cek Antrian</Button>
+                        {nuk}
                     </div>
                     </div>
                     <br/>
