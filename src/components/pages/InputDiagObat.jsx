@@ -6,6 +6,7 @@ import MTable from 'material-table';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import Paper from '@material-ui/core/Paper';
 import { OutlinedInput } from '@material-ui/core';
+import Swal from 'sweetalert2';
 
 import './InputDiagObat.css';
 
@@ -93,8 +94,9 @@ export default class InputDiagObat extends React.Component{
             datapasien: response.data.data,
             loading: false
           });
+          Swal.hideLoading()
         //   console.log(response.data.data);
-        alert(response.data.note);
+        // alert(response.data.note);
         })
         .catch(error => {
          alert(error);
@@ -114,6 +116,7 @@ export default class InputDiagObat extends React.Component{
             blank:false,
             loding:false
           });
+          Swal.hideLoading()
           alert(response.data.note);
         //   console.log(response.data.data);
           
@@ -127,14 +130,10 @@ export default class InputDiagObat extends React.Component{
 
       componentDidMount(){
         this.fetchdatapasien();
-        this._interval = window.setInterval(this.fetchdatapasien(), 10000);
-     
+   
      
      }
-     componentWillUnmount() {
-       this._interval && window.clearInterval(this._interval);
-     }
-
+     
      rowClikPasien = (e,rowData) => {
         e.preventDefault();
         this.setState({
@@ -191,10 +190,11 @@ export default class InputDiagObat extends React.Component{
         this.fetchdatatrans();
         //   console.log(res.data);
         alert(res.data.note);
+        this.resetstate();
         });
 
         
-        this.resetstate();
+       
         this.toggleU();
 
     }
@@ -214,7 +214,7 @@ export default class InputDiagObat extends React.Component{
         let tabeltrans;
         let loding;
         if(this.state.loading){
-            loding=<div>Loading data</div>
+            loding=Swal.showLoading();
         }else{
             loding= <MTable 
             title="Tabel Pasien"

@@ -7,8 +7,8 @@ import './index.css';
 
 import Login from './Login';
 import registerServiceWorker from './registerServiceWorker';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter  } from 'react-router-dom';
 
 
-ReactDOM.render(<Router><Login /></Router>, document.getElementById('root'));
+ReactDOM.render(<BrowserRouter><Login /></BrowserRouter>, document.getElementById('root'));
 registerServiceWorker();

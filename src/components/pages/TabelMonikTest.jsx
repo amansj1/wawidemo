@@ -10,6 +10,7 @@ import NativeSelect from '@material-ui/core/NativeSelect';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
 import './TabelMonikTest.css';
+import Swal from 'sweetalert2';
 
 export default class TabelMonikTest  extends React.Component{
     constructor(props){
@@ -28,8 +29,7 @@ export default class TabelMonikTest  extends React.Component{
     
           //property table untuk disi pake API
           columns: [
-            {title:'Id', field:'id_jadwal_monik'},
-            {title:'Id Monik', field:'id_mst_monik'},
+            {title:'Nama Monik', field:'nama_monik'},
             {title:'Mulai', field:'jam_mulai_monik'},
             {title:'Selesai', field:'jam_selesai_monik'},
             {title:'Kegiatan', field:'kegiatan'},
@@ -57,25 +57,25 @@ fetchdata = () =>{
   .then(response => {
     this.setState({
       data: response.data.data,
-      loading: false
+      loading: false,
+      
     });
+    Swal.hideLoading();
     // console.log(response.data.data);
-    
+    this.datamonik();
   })
   .catch(error => {
    alert(error);
   });
-  this.datamonik();
+  
 }
 componentDidMount(){
    this.fetchdata();
-   this._interval = window.setInterval(this.fetchdata(), 10000);
+  
 
 
 }
-componentWillUnmount() {
-  this._interval && window.clearInterval(this._interval);
-}
+
 
 
 handleChangeAdd = event =>{
@@ -205,8 +205,9 @@ resetstate(){
       this.fetchdata();
       // console.log(res);
       alert(res.data.note);
+      this.resetstate();
     })
-    this.resetstate();
+    
   }
   handleLatChange = (v1)=>{
     this.setState({
@@ -244,7 +245,7 @@ render(){
     map= <Button type="button" color="grey" onClick={this.mapsopen} >Lihat Maps</Button>
   }
   if (this.state.loading) {
-    content = <div>Loading...</div>;
+    content = Swal.showLoading();
   } else { 
 
   if(this.state.modalup){

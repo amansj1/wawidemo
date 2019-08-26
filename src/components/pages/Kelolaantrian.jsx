@@ -83,6 +83,7 @@ fetchdata = () =>{
       this.setState({
         datapro: response.data.data,
         loading: false
+        
       });
       Swal.hideLoading()
       // console.log(response);
@@ -140,20 +141,23 @@ this.getdatadokter();
     this.setState({
       loading : true,
       id_antrian : rowData.id_mst_antrian });
+      Swal.showLoading();
 
       const url4 ='https://zav-wawi.herokuapp.com/api/antrian/confirm/antrianid=';
       axios.get(url4 + this.state.id_antrian )
       .then(response => {
+        this.fetchdata();
         this.setState({
           loading: false
         });
         Swal.hideLoading();
+        
         // console.log(response);
       })
       .catch(error => {
         console.log(error.response);
       });
-      this.fetchdata();
+      
   }
 
   rowClik1 = (e,rowData) => {
@@ -161,20 +165,23 @@ this.getdatadokter();
     this.setState({
       loading : true,
       id_antrian : rowData.id_mst_antrian });
+      Swal.showLoading();
 
       const url5 ='https://zav-wawi.herokuapp.com/api/antrian/processed/antrianid=';
       axios.get(url5 + this.state.id_antrian )
       .then(response => {
+        this.fetchdata();
         this.setState({
           loading: false
         });
         Swal.hideLoading()
+        
         // console.log(response);
       })
       .catch(error => {
         console.log(error.response);
       });
-      this.fetchdata();
+      
   }
 
   cek =(e) =>{
@@ -182,6 +189,7 @@ this.getdatadokter();
     this.setState({
         loading:true
     })
+    Swal.showLoading();
     this.fetchdata();
     
   }
@@ -190,10 +198,10 @@ this.getdatadokter();
 
     render(){
       let nuk;
-      if(this.state.poliid<0&&this.state.dokterid<0){
+      if(this.state.poliid>0&&this.state.dokterid>0){
         nuk = <Button type="submit" color="grey" onClick={this.cek} >Cek Antrian</Button>
       }else{
-        nuk = <div/>
+        nuk = <Button type="submit" color="grey" onClick={this.cek} >Cek Antrian</Button>
       }
 
       let dokter = this.state.datadokter.map(function(item, i){
