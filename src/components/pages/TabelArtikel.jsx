@@ -8,6 +8,17 @@ import NativeSelect from '@material-ui/core/NativeSelect';
 import { OutlinedInput } from '@material-ui/core';
 import './TabelArtikel.css';
 import Swal from 'sweetalert2';
+import firebase from "firebase";
+
+
+var config = {
+  apiKey: "AIzaSyCtCRmHMgXvuka5GexXJybeGlMSLKQcqA4",
+  authDomain: "wawi-f87fd.firebaseapp.com",
+  databaseURL: "https://wawi-f87fd.firebaseio.com",
+  storageBucket: "gs://wawi-f87fd.appspot.com/fotoArtikel",
+};
+
+firebase.initializeApp(config);
 
 export default class TabelArtikel extends React.Component{
   constructor(props){
@@ -22,6 +33,7 @@ export default class TabelArtikel extends React.Component{
       idkategori:'',
       kategoriartikel:[],
       Kat:'',
+      
 
       //property table untuk disi pake API
       columns: [
@@ -50,22 +62,44 @@ export default class TabelArtikel extends React.Component{
 //ketika submit dari form artikel (POST DATA)
 handleSubmitAdd (e){
   e.preventDefault();
-  const apiurl = 'https://zav-wawi.herokuapp.com/api/artikel/create'
-  const addartikel ={
-    id_mst_penulis : this.props.id_pengguna,
-    judul_artikel : this.state.Judul,
-    isi_artikel : this.state.Isi,
-    id_kategori_artikel : this.state.idkategori,
-    foto_artikel : this.state.Foto    
+  const ref = firebase.storage().ref();
+  const file = document.querySelector('#photo').files[0]
+
+  // console.log("foto"+ JSON.stringify(file))
+ 
+ 
+  const name = (+new Date()) + '-' + file.name;
+  const metadata = {
+  contentType: file.type
   };
-  axios.post(apiurl, addartikel)
-  .then(res => {
-    this.fetchdata();
-    // console.log(res.data);
-    alert(res.data.note)
-  }).catch(e=>{console.log(e.response)})
-  this.resetstate();
-  this.toggle();
+  const task = ref.child(name).put(file, metadata);
+  Swal.showLoading() ;
+  task
+  .then(snapshot => snapshot.ref.getDownloadURL())
+  .then((url) => {
+    const apiurl = 'https://zav-wawi.herokuapp.com/api/artikel/create'
+    const addartikel ={
+      id_mst_penulis : this.props.id_pengguna,
+      judul_artikel : this.state.Judul,
+      isi_artikel : this.state.Isi,
+      id_kategori_artikel : this.state.idkategori,
+      foto_artikel : url    
+    };
+    axios.post(apiurl, addartikel)
+    .then(res => {
+      this.fetchdata();
+      // console.log(res.data);
+      alert(res.data.note)
+    }).catch(e=>{console.log(e.response)})
+    this.resetstate();
+    this.toggle();
+
+  })
+
+
+
+
+       
 }
 handleSubmitKat (e){
   e.preventDefault();
@@ -86,25 +120,43 @@ handleSubmitKat (e){
 //ketika submit dari form artikel (PUT DATA)
 handleSubmitPut (e){
   e.preventDefault();
-  const id = this.state.id
-  const apiurl = 'https://zav-wawi.herokuapp.com/api/artikel/update/artikelid='
-  // console.log(apiurl + id);
+  const ref = firebase.storage().ref();
+  const file = document.querySelector('#photo').files[0]
 
-  const putartikel ={
-    id_mst_penulis : this.props.id_pengguna,
-    judul_artikel : this.state.Judul,
-    isi_artikel : this.state.Isi,
-    id_kategori_artikel : this.state.idkategori,
-    foto_artikel : this.state.Foto    
+  // console.log("foto"+ JSON.stringify(file))
+ 
+ 
+  const name = (+new Date()) + '-' + file.name;
+  const metadata = {
+  contentType: file.type
   };
-  axios.put(apiurl + id, putartikel)
-  .then(res => {
-    this.fetchdata();
-    // console.log(res.data);
-    alert(res.data.note)
-  }).catch(e=>{console.log(e.response)})
-  this.resetstate();
-  this.toggleU();
+  const task = ref.child(name).put(file, metadata);
+  Swal.showLoading() ;
+  task
+  .then(snapshot => snapshot.ref.getDownloadURL())
+  .then((url) => {
+    const id = this.state.id
+    const apiurl = 'https://zav-wawi.herokuapp.com/api/artikel/update/artikelid='
+    // console.log(apiurl + id);
+
+    const putartikel ={
+      id_mst_penulis : this.props.id_pengguna,
+      judul_artikel : this.state.Judul,
+      isi_artikel : this.state.Isi,
+      id_kategori_artikel : this.state.idkategori,
+      foto_artikel : url  
+    };
+    axios.put(apiurl + id, putartikel)
+    .then(res => {
+      this.fetchdata();
+      // console.log(res.data);
+      alert(res.data.note)
+    }).catch(e=>{console.log(e.response)})
+    this.resetstate();
+    this.toggleU();
+
+  })
+    
 }
 
 
@@ -285,16 +337,15 @@ let jadwal = this.state.kategoriartikel.map(function(item, i){
               onChange={this.handleChangeAdd}
             />
            
-            <TextField
-              name="Foto"
-              id="outlined-name"
-              label="Link Foto"
-              margin="normal"
-              variant="outlined"
-              onChange={this.handleChangeAdd}
-            />
+           <input
+            accept="image/*"
+            name="photo"
+            id="photo"
+            multiple
+            type="file"
+          />
             <br/>
-            <img src={this.state.Foto} alt="Foto Artikel" width="500" height="333"></img>
+        
  
           </ModalBody>
           <ModalFooter>
