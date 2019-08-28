@@ -9,12 +9,13 @@ import Paper from '@material-ui/core/Paper';
 import { OutlinedInput } from '@material-ui/core';
 
 import './InputObat.css';
+import Swal from 'sweetalert2';
 
 export default class InputObat extends React.Component{
     constructor(props){
         super(props)
         this.state={
-            apotekid:10,
+            apotekid:this.props.id_pengguna,
             invStok:'',
             staStok:'',
             hargaObat:'',
@@ -31,7 +32,14 @@ export default class InputObat extends React.Component{
                 {title:'Jenis Obat', field:'jenis_obat.nama_jenis_obat'},
                 {title:'Tanggal Input Obat', field:'created_at'},
             ],
+            colGetObatApt:[
+              {title:'Nama Obat', field:'mst_obat.nama_obat'},
+              {title:'Jenis Obat', field:'mst_obat.jenis_obat.nama_jenis_obat'},
+              {title:'Stok Inventori', field:'inventori_stok'},
+              {title:'Harga Obat', field:'harga_obat'},
+          ],
             dataGetObat:[],
+            dataGetObatApt:[],
 
 
             modalup:false,
@@ -52,7 +60,7 @@ export default class InputObat extends React.Component{
             jenisObat: response.data.data,
             loading: false
           });
-       
+          Swal.hideLoading()
           
         })
         .catch(error => {
@@ -61,6 +69,19 @@ export default class InputObat extends React.Component{
         // alert('Silahkan tambahkan stok obat apotek dengan cara memilih pada baris tabel, apabila obat tidak terdapat pada tabel silahkan pilih + Tambah Obat');
     }
     fetchdata = () =>{
+      const url2 ='https://zav-wawi.herokuapp.com/api/obat/byapotekid=';
+      const id = this.props.id_pengguna;
+        axios.get(url2+id)
+        .then(response => {
+          this.setState({
+            dataGetObatApt: response.data.data,
+          });
+          // Swal.hideLoading()
+        })
+        .catch(error => {
+         alert(error);
+        });
+
         const url ='https://zav-wawi.herokuapp.com/api/obat/all';
         axios.get(url)
         .then(response => {
@@ -68,24 +89,19 @@ export default class InputObat extends React.Component{
             dataGetObat: response.data.data,
             loading: false
           });
-     
-          
+          // Swal.hideLoading()
+          this.datajenisobat();
         })
         .catch(error => {
          alert(error);
         });
-        this.datajenisobat();
+        
       }
       componentDidMount(){
         this.fetchdata();
-        this._interval = window.setInterval(this.fetchdata(), 10000);
-     
-     
+      
      }
-     componentWillUnmount() {
-       this._interval && window.clearInterval(this._interval);
-     }
-
+  
      toggle() {
         this.setState(prevState => ({
           modalup: !prevState.modalup    
@@ -106,7 +122,7 @@ export default class InputObat extends React.Component{
     }
     resetstate=()=>{
         this.setState({
-            apotekid:10,
+            apotekid:this.props.id_pengguna,
             invStok:'',
             staStok:'',
             hargaObat:'',
@@ -131,6 +147,7 @@ export default class InputObat extends React.Component{
       
         axios.post(apiurl+this.props.id_pengguna, addtrans)
         .then(res => {
+          this.fetchdata();
         //   console.log(res.data);
         }).catch(e =>{ console.log(e.response)})
         this.resetstate();
@@ -145,10 +162,10 @@ export default class InputObat extends React.Component{
       
         axios.post(apiurl1, addtrans)
         .then(res => {
+          this.fetchdata();
           // console.log(res.data);
         }).catch(e =>{ console.log(e.response)})
         this.resetstate();
-        this.fetchdata();
     }
     
 
@@ -161,7 +178,7 @@ export default class InputObat extends React.Component{
           })
 
         if(this.state.loading){
-            content =<div>Loading data..</div> 
+            content =Swal.showLoading();
         }else if(this.state.addtopuskesmas){
             content = <div> <Paper className="paper">
             <div className="formpad">
@@ -228,6 +245,12 @@ export default class InputObat extends React.Component{
         </Paper>
         <br/>
         <MTable 
+            title="Daftar Obat Apotek "
+            columns={this.state.colGetObatApt}
+            data={this.state.dataGetObatApt}
+            />
+        <br/>
+        <MTable 
             title="Obat Terdaftar (Pilih Baris Untuk Menambahkan Inventori)"
             columns={this.state.colGetObat}
             data={this.state.dataGetObat}
@@ -250,7 +273,14 @@ export default class InputObat extends React.Component{
 
 
         }else{
-            content =<div><MTable 
+            content =<div>
+               <MTable 
+            title="Daftar Obat Apotek "
+            columns={this.state.colGetObatApt}
+            data={this.state.dataGetObatApt}
+            />             
+              <br/>
+              <MTable 
             title="Obat Terdaftar (Pilih Baris Untuk Menambahkan Inventori)"
             columns={this.state.colGetObat}
             data={this.state.dataGetObat}

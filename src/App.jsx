@@ -14,7 +14,7 @@ class App extends Component {
           <TopNavigation />
           <SideNavigation />
           <main id="content" className="p-5">
-            <Routes />
+            <Routes id_pengguna={1}/>
           </main>
          
           
