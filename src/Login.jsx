@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import Input from '@material-ui/core/Input';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import TopNavigation from './components/topNavigation';
 // import SideNavigation from './components/sideNavigation';
 // import SideNavPuskesmas from './components/sideNavPuskesmas';
@@ -76,6 +77,7 @@ class Login extends React.Component {
             redirectToReferrer: true,
             loading:false
           });
+          Swal.hideLoading()
 
         }else if(this.state.provider==='admin_moniks'){
           this.setState({
@@ -84,6 +86,7 @@ class Login extends React.Component {
             redirectToReferrer: true,
             loading:false
           });
+          Swal.hideLoading()
 
         }else if (this.state.provider==='penulises'){
           this.setState({
@@ -93,6 +96,7 @@ class Login extends React.Component {
             redirectToReferrer: true,
             loading:false
           });
+          Swal.hideLoading()
 
         }else if (this.state.provider==='apoteks'){
           this.setState({
@@ -102,6 +106,7 @@ class Login extends React.Component {
             redirectToReferrer: true,
             loading:false
           });
+          Swal.hideLoading()
 
         }else{
 
@@ -114,6 +119,7 @@ class Login extends React.Component {
         
           loading:false
         });
+        Swal.hideLoading()
         
       })       
     }
@@ -175,7 +181,7 @@ class Login extends React.Component {
     </div>
     }
     else if(this.state.loading===true){
-      content = <div>loading page....</div>
+      content = Swal.showLoading();
     }else{
       content =  
     <div className="flexible-content">
