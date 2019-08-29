@@ -14,8 +14,7 @@ import firebase from "firebase";
 var config = {
   apiKey: "AIzaSyCtCRmHMgXvuka5GexXJybeGlMSLKQcqA4",
   authDomain: "wawi-f87fd.firebaseapp.com",
-  databaseURL: "https://wawi-f87fd.firebaseio.com",
-  storageBucket: "gs://wawi-f87fd.appspot.com/fotoArtikel",
+  storageBucket: "gs://wawi-f87fd.appspot.com/",
 };
 
 firebase.initializeApp(config);
@@ -50,7 +49,8 @@ export default class TabelArtikel extends React.Component{
       modaladd:false,
       modalup:false,
       modKat:false,
-      modKat1:false
+      modKat1:false,
+      random:0
     };
     this.handleSubmitAdd = this.handleSubmitAdd.bind(this);
     this.toggleU = this.toggleU.bind(this);
@@ -64,11 +64,14 @@ handleSubmitAdd (e){
   e.preventDefault();
   const ref = firebase.storage().ref();
   const file = document.querySelector('#photo').files[0]
-
+  const min = 77;
+    const max = 1769;
+    const rand = min + Math.random() * (max - min);
+    this.setState({ random: this.state.random + rand });
   // console.log("foto"+ JSON.stringify(file))
  
  
-  const name = (+new Date()) + '-' + file.name;
+  const name = ('FotoArtikel '+ rand + '-' + file.name);
   const metadata = {
   contentType: file.type
   };
@@ -77,6 +80,7 @@ handleSubmitAdd (e){
   task
   .then(snapshot => snapshot.ref.getDownloadURL())
   .then((url) => {
+    console.log(url);
     const apiurl = 'https://zav-wawi.herokuapp.com/api/artikel/create'
     const addartikel ={
       id_mst_penulis : this.props.id_pengguna,
@@ -124,9 +128,12 @@ handleSubmitPut (e){
   const file = document.querySelector('#photo').files[0]
 
   // console.log("foto"+ JSON.stringify(file))
+  const min = 55;
+  const max = 287;
+  const rand = min + Math.random() * (max - min);
+  this.setState({ random: this.state.random + rand });
  
- 
-  const name = (+new Date()) + '-' + file.name;
+  const name = ('FotoArtikel '+ rand + '-' + file.name);
   const metadata = {
   contentType: file.type
   };
@@ -270,6 +277,8 @@ render () {
 
 //content
 let jadwal = this.state.kategoriartikel.map(function(item, i){
+  
+  
   return <option key={i} value={item.id_kategori_artikel}>{item.kategori}</option>;
 })
   let content;
@@ -395,16 +404,13 @@ let jadwal = this.state.kategoriartikel.map(function(item, i){
              
             />
 
-            <TextField
-              name="Foto"
-              id="outlined-name"
-              label="Link Foto"
-              margin="normal"
-              defaultValue=''
-              variant="outlined"
-              value = {this.state.Foto}
-              onChange={this.handleChangeAdd}
-            />
+            <input
+            accept="image/*"
+            name="photo"
+            id="photo"
+            multiple
+            type="file"
+          />
             <br/>
             <img src={this.state.Foto} alt="Foto Artikel" width="500" height="333"></img>
            
