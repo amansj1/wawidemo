@@ -3,12 +3,15 @@ import axios from 'axios';
 import MTable from 'material-table';
 import './Kelolaantrian.css';
 import Swal from 'sweetalert2';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+
 
 export default class AntrinApotek extends React.Component{
     constructor(props){
         super(props);
         this.state={
             loading:false,
+            modalup:false,
             rowKlik:false,
 
             colAntrian:[
@@ -31,6 +34,11 @@ export default class AntrinApotek extends React.Component{
             obat:[]
         }
     }
+    toggle() {
+      this.setState(prevState => ({
+        modalup: !prevState.modalup    
+      }));
+  };
     fetchdata = () =>{
 
         const url ='https://zav-wawi.herokuapp.com/api/antrian_apotek/hasprocessed/apotekid=';
@@ -142,31 +150,7 @@ export default class AntrinApotek extends React.Component{
           <ModalHeader toggle={this.toggle}><b>Resep Pasien</b></ModalHeader>
          
           <ModalBody>
-          <div className="row" id="input2">
-                <div className="col-md-7">
-                   <TextField
-                    name="namaObat"
-                    id="outlined-name"
-                    label="Nama Obat Baru"
-                    fullWidth
-                    value={this.state.namaObat}
-                    margin="normal"
-                    variant="outlined"
-                    onChange={this.handleChangeAdd}
-                   />
-                </div>
-                <div className="col-md-4">
-                  <div className="select">
-                <NativeSelect id="select"
-                    value={this.state.idJenis}
-                    onChange={this.handleChangeAdd}
-                    input={<OutlinedInput name="idJenis" value={this.state.idJenis} fullWidth id="outlined-age-simple"  />}
-                            >
-                    <option>- Pilih Jenis Obat -</option>
-                    {jenis}
-                    </NativeSelect>
-                </div> </div>            
-         </div>
+          
           </ModalBody>
           <ModalFooter>
             <Button type="submit" color="green">Submit</Button>
