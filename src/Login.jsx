@@ -7,11 +7,11 @@ import Input from '@material-ui/core/Input';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import TopNavigation from './components/topNavigation';
-// import SideNavigation from './components/sideNavigation';
-// import SideNavPuskesmas from './components/sideNavPuskesmas';
-// import SideNavAdmin from './components/sideNavAdmin';
-// import SideNavPenulis from './components/sideNavPenulis';
-// import SideNavApotek from './components/sideNavApotek';
+import SideNavigation from './components/sideNavigation';
+import SideNavPuskesmas from './components/sideNavPuskesmas';
+import SideNavAdmin from './components/sideNavAdmin';
+import SideNavPenulis from './components/sideNavPenulis';
+import SideNavApotek from './components/sideNavApotek';
 
 // import {
 //   BrowserRouter as Router,
