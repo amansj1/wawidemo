@@ -142,7 +142,7 @@ class Login extends React.Component {
       content =  
       <div className="flexible-content">
           <TopNavigation onLogout = {(value)=> this.handleLogoutChange(value)} />
-          {/* <SideNavPuskesmas nama={this.state.nama}/> */}
+          <SideNavPuskesmas nama={this.state.nama}/>
           <main id="content" className="p-5">
             <RoutesPuskesmas
             idpuskes={this.state.id_pengguna}
@@ -153,7 +153,7 @@ class Login extends React.Component {
     }else if(this.state.redirectToReferrer===true&&this.state.provider==='admin_moniks'){
       content =   <div className="flexible-content">
       <TopNavigation onLogout = {(value)=> this.handleLogoutChange(value)} />
-      {/* <SideNavAdmin nama={this.state.nama} /> */}
+      <SideNavAdmin nama={this.state.nama} />
       <main id="content" className="p-5">
         <RoutesAdmin
         />
@@ -162,7 +162,7 @@ class Login extends React.Component {
     }else if(this.state.redirectToReferrer===true&&this.state.provider==='penulises'){
       content =  <div className="flexible-content">
       <TopNavigation onLogout = {(value)=> this.handleLogoutChange(value)}/>
-      {/* <SideNavPenulis nama={this.state.nama} /> */}
+      <SideNavPenulis nama={this.state.nama} />
       <main id="content" className="p-5">
         <RoutesPenulis
         id_pengguna={this.state.id_pengguna}
@@ -172,7 +172,7 @@ class Login extends React.Component {
     }else if(this.state.redirectToReferrer===true&&this.state.provider==='apoteks'){
       content =  <div className="flexible-content">
       <TopNavigation onLogout = {(value)=> this.handleLogoutChange(value)}/>
-      {/* <SideNavApotek nama={this.state.nama} /> */}
+      <SideNavApotek nama={this.state.nama} />
       <main id="content" className="p-5">
         <RoutesApotek
         id_pengguna={this.state.id_pengguna}
