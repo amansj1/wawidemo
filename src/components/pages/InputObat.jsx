@@ -60,11 +60,15 @@ export default class InputObat extends React.Component{
             jenisObat: response.data.data,
             loading: false
           });
-          Swal.hideLoading()
+          Swal.fire(
+            'Connected!',
+            'Loading Selesai',
+            'success'
+          )
           
         })
         .catch(error => {
-         alert(error);
+        //  alert(error);
         });
         // alert('Silahkan tambahkan stok obat apotek dengan cara memilih pada baris tabel, apabila obat tidak terdapat pada tabel silahkan pilih + Tambah Obat');
     }
@@ -79,7 +83,7 @@ export default class InputObat extends React.Component{
           // Swal.hideLoading()
         })
         .catch(error => {
-         alert(error);
+        //  alert(error);
         });
 
         const url ='https://zav-wawi.herokuapp.com/api/obat/all';
@@ -93,7 +97,7 @@ export default class InputObat extends React.Component{
           this.datajenisobat();
         })
         .catch(error => {
-         alert(error);
+        //  alert(error);
         });
         
       }

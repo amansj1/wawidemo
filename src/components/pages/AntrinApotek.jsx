@@ -12,6 +12,7 @@ export default class AntrinApotek extends React.Component{
         this.state={
             loading:true,
             modalup:false,
+            modalup2:false,
             rowKlik:false,
 
             colAntrian:[
@@ -47,19 +48,29 @@ export default class AntrinApotek extends React.Component{
             namapasien:''
         }
         this.toggle = this.toggle.bind(this);
+        this.toggle2 = this.toggle2.bind(this);
     }
     toggle() {
       this.setState(prevState => ({
         modalup: !prevState.modalup    
       }));
   };
+  toggle2() {
+    this.setState(prevState => ({
+      modalup2: !prevState.modalup2    
+    }));
+};
     fetchdata = () =>{
       Swal.showLoading();
 
         const url ='https://zav-wawi.herokuapp.com/api/antrian_apotek/hasprocessed/apotekid=';
         axios.get(url + this.props.id_pengguna)
         .then(response => {
-          Swal.hideLoading()
+          Swal.fire(
+            'Connected!',
+            'Loading Selesai',
+            'success'
+          )
           this.setState({
             dataAntrian: response.data.data,
             loading: false
@@ -149,9 +160,18 @@ export default class AntrinApotek extends React.Component{
           idmstantrianpasien: rowData.id_mst_antrian_apotek,
           namapasien:rowData.mst_resep_obat.mst_pasien.name,
           obat:rowData.mst_resep_obat.trans_obat,
-      });
-     
+      });    
       this.toggle();
+     
+    }
+    rowClik2 = (e,rowData) => {
+      e.preventDefault();
+      this.setState({
+          idmstantrianpasien: rowData.id_mst_antrian_apotek,
+          namapasien:rowData.mst_resep_obat.mst_pasien.name,
+          obat:rowData.mst_resep_obat.trans_obat,
+      });    
+      this.toggle2();
      
     }
     render(){
@@ -178,6 +198,7 @@ export default class AntrinApotek extends React.Component{
                 title="Antrian Resep (Sudah Diproses)"
                 columns={this.state.colSelesai}
                 data={this.state.dataSelesai}
+                onRowClick={this.rowClik2}
                 />
                 </div>
                 <div className="col-md-6">
@@ -185,6 +206,7 @@ export default class AntrinApotek extends React.Component{
                 title="Antrian Resep (Reject Resep)"
                 columns={this.state.colreject}
                 data={this.state.dataReject}
+                onRowClick={this.rowClik2}
                 />
             </div>
             </div>
@@ -205,8 +227,21 @@ export default class AntrinApotek extends React.Component{
           </ModalBody>
           <ModalFooter>
           <Button type="button" color="red" onClick={this.antrianhasreject} >Reject Resep </Button>
-          <Button type="button" color="green" onClick={this. antrianhasproses} >Resep Selesai </Button>
+          <Button type="button" color="green" onClick={this.antrianhasproses} >Resep Selesai </Button>
           
+          </ModalFooter>
+       
+        </Modal>
+        <Modal isOpen={this.state.modalup2} toggle={this.toggle2} className="modal-lg">
+          <ModalHeader toggle={this.toggle2}><b>Resep Pasien </b> {this.state.namapasien}</ModalHeader>
+          <ModalBody>
+          <MTable 
+                title="Daftar Obat"
+                columns={this.state.colObat}
+                data={this.state.obat}
+                />
+          </ModalBody>
+          <ModalFooter>          
           </ModalFooter>
        
         </Modal>

@@ -94,18 +94,22 @@ export default class InputDiagObat extends React.Component{
             datapasien: response.data.data,
             loading: false
           });
-          Swal.hideLoading()
+          Swal.fire(
+            'Connected!',
+            'Loading Selesai',
+            'success'
+          )
         //   console.log(response.data.data);
         // alert(response.data.note);
         })
         .catch(error => {
-         alert(error);
+        //  alert(error);
         });
         
       }
 
       fetchdatatrans = ()=>{
-       
+        Swal.showLoading();
         const id = this.state.id_pasien;
         const url ='https://zav-wawi.herokuapp.com/api/trans_monik/bypasienmonikid=';
        
@@ -116,13 +120,17 @@ export default class InputDiagObat extends React.Component{
             blank:false,
             loding:false
           });
-          Swal.hideLoading()
-          alert(response.data.note);
+          Swal.fire(
+            'Connected!',
+            'Loading Selesai',
+            'success'
+          )
+
         //   console.log(response.data.data);
           
         })
         .catch(error => {
-         alert(error);
+        //  alert(error.message);
         });
 
         
@@ -130,6 +138,7 @@ export default class InputDiagObat extends React.Component{
 
       componentDidMount(){
         this.fetchdatapasien();
+       
    
      
      }
@@ -152,6 +161,7 @@ export default class InputDiagObat extends React.Component{
     }
     rowClikTrans =(e,rowData)=>{
         e.preventDefault();
+       
         this.setState({
             id_trans:rowData.id_mst_trans_monik,
             obat:rowData.obat_pm,
@@ -162,40 +172,42 @@ export default class InputDiagObat extends React.Component{
     }
     handleSubmitDiagObat(e){
         e.preventDefault();
+        Swal.showLoading();
         const apiurl = 'https://zav-wawi.herokuapp.com/api/diagnosa_pms/create'
         const addpasien ={
             id_trans_monik: this.state.id_trans,
             diagnosa:[
                 {diagnosa: this.state.diagnosa1},
-                {diagnosa: this.state.diagnosa2},
-                {diagnosa: this.state.diagnosa3},
+              
                 ]
         };
         axios.post(apiurl, addpasien)
         .then(res => {
-            alert(res.data.note);
+            this.fetchdatatrans();
+            // alert(res.data.note);
         //   console.log(res.data);
-        });
+        }).catch(error => {
+            // alert(error.message);
+           });
         const apiurl1 = 'https://zav-wawi.herokuapp.com/api/obat_pms/create'
         const addobat ={
             id_trans_monik: this.state.id_trans,
             obat:[
                 {nama_obat: this.state.obat1},
-                {nama_obat: this.state.obat2},
-                {nama_obat: this.state.obat3},
+             
                 ]
         };
         axios.post(apiurl1, addobat)
         .then(res => {
         this.fetchdatatrans();
         //   console.log(res.data);
-        alert(res.data.note);
+      
         this.resetstate();
         });
 
         
        
-        this.toggleU();
+     
 
     }
     toggleU() {
@@ -405,58 +417,7 @@ export default class InputDiagObat extends React.Component{
                     />
                 </div>             
          </div>
-         <div className="row" id="input2">
-                <div className="col-md-7">
-                   <TextField
-                    name="diagnosa2"
-                    id="outlined-name"
-                    label="Diagnosa"
-                    fullWidth
-                    value={this.state.diagnosa2}
-                    margin="normal"
-                    variant="outlined"
-                    onChange={this.handleChangeAdd}
-                   />
-                </div>
-                <div className="col-md-4">
-                   <TextField
-                    name="obat2"
-                    id="outlined-name"
-                    label="Obat"
-                    fullWidth
-                    margin="normal"
-                    variant="outlined"
-                    value={this.state.obat2}
-                    onChange={this.handleChangeAdd}
-                    />
-                </div>             
-         </div>
-         <div className="row" id="input2">
-                <div className="col-md-7">
-                   <TextField
-                    name="diagnosa3"
-                    id="outlined-name"
-                    label="Diagnosa"
-                    fullWidth
-                    value={this.state.diagnosa3}
-                    margin="normal"
-                    variant="outlined"
-                    onChange={this.handleChangeAdd}
-                   />
-                </div>
-                <div className="col-md-4">
-                   <TextField
-                    name="obat3"
-                    id="outlined-name"
-                    label="Obat"
-                    fullWidth
-                    margin="normal"
-                    variant="outlined"
-                    value={this.state.obat3}
-                    onChange={this.handleChangeAdd}
-                    />
-                </div>             
-         </div>
+       
 
         <br/>
         <div className="row" id="input2">

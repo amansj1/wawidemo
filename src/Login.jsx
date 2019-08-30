@@ -69,7 +69,11 @@ class Login extends React.Component {
             redirectToReferrer: true,
             loading:false
           });
-          Swal.hideLoading()
+          Swal.fire(
+            'Connected!',
+            'Loading Selesai',
+            'success'
+          )
 
         }else if(this.state.provider==='admin_moniks'){
           this.setState({
@@ -78,7 +82,11 @@ class Login extends React.Component {
             redirectToReferrer: true,
             loading:false
           });
-          Swal.hideLoading()
+          Swal.fire(
+            'Connected!',
+            'Loading Selesai',
+            'success'
+          )
 
         }else if (this.state.provider==='penulises'){
           this.setState({
@@ -88,8 +96,11 @@ class Login extends React.Component {
             redirectToReferrer: true,
             loading:false
           });
-          Swal.hideLoading()
-
+          Swal.fire(
+            'Connected!',
+            'Loading Selesai',
+            'success'
+          )
         }else if (this.state.provider==='apoteks'){
           this.setState({
             token:res.data.access_token,
@@ -98,7 +109,11 @@ class Login extends React.Component {
             redirectToReferrer: true,
             loading:false
           });
-          Swal.hideLoading()
+          Swal.fire(
+            'Connected!',
+            'Loading Selesai',
+            'success'
+          )
 
         }else{
 
@@ -111,7 +126,11 @@ class Login extends React.Component {
         
           loading:false
         });
-        Swal.hideLoading()
+        Swal.fire(
+          'Connected!',
+          'Loading Selesai',
+          'success'
+        )
         
       })       
     }

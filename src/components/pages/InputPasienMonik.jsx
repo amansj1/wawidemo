@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import MTable from 'material-table';
 import NativeSelect from '@material-ui/core/NativeSelect';
-
+import Swal from 'sweetalert2';
 import Paper from '@material-ui/core/Paper';
 import './InputPasienMonik.css';
 import { OutlinedInput } from '@material-ui/core';
@@ -126,11 +126,16 @@ export default class InputPasienMonik extends React.Component{
             data: response.data.data,
             loading: false
           });
+          Swal.fire(
+            'Connected!',
+            'Loading Selesai',
+            'success'
+          )
         //   console.log(response.data.data);
           
         })
         .catch(error => {
-         alert(error);
+        //  alert(error);
         });
         this.datakegiatanmonik();
       }
@@ -146,20 +151,18 @@ export default class InputPasienMonik extends React.Component{
           
         })
         .catch(error => {
-         alert(error);
+        //  alert(error);
         });
 
     }
 
     componentDidMount(){
         this.fetchdata();
-        this._interval = window.setInterval(this.fetchdata(), 10000);
+     
      
      
      }
-     componentWillUnmount() {
-       this._interval && window.clearInterval(this._interval);
-     }
+  
     
 
     handleChangeAdd = event =>{
@@ -314,7 +317,7 @@ export default class InputPasienMonik extends React.Component{
           })
 
         if(this.state.loading){
-            content= <div>Loading ..</div>
+            content= Swal.showLoading();
         }else{
         content =    
                 <MTable 

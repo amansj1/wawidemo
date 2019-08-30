@@ -76,7 +76,11 @@ handleSubmitAdd (e){
   contentType: file.type
   };
   const task = ref.child(name).put(file, metadata);
-  Swal.showLoading() ;
+  Swal.fire(
+    'Connected!',
+    'Loading Selesai',
+    'success'
+  )
   task
   .then(snapshot => snapshot.ref.getDownloadURL())
   .then((url) => {
@@ -93,7 +97,7 @@ handleSubmitAdd (e){
     .then(res => {
       this.fetchdata();
       // console.log(res.data);
-      alert(res.data.note)
+      // alert(res.data.note)
     }).catch(e=>{console.log(e.response)})
     this.resetstate();
     this.toggle();
@@ -115,7 +119,7 @@ handleSubmitKat (e){
   .then(res => {
     this.fetchdata();
     // console.log(res.data);
-    alert(res.data.note)
+    // alert(res.data.note)
   }).catch(e=>{console.log(e.response)})
   this.resetstate();
   this.toggl();
@@ -157,7 +161,7 @@ handleSubmitPut (e){
     .then(res => {
       this.fetchdata();
       // console.log(res.data);
-      alert(res.data.note)
+      // alert(res.data.note)
     }).catch(e=>{console.log(e.response)})
     this.resetstate();
     this.toggleU();
@@ -177,7 +181,11 @@ fetchdata = () =>{
       data: response.data,
       loading: false
     });
-    Swal.hideLoading()
+    Swal.fire(
+      'Connected!',
+      'Loading Selesai',
+      'success'
+    )
     // console.log(response);
   })
   .catch(error => {
@@ -236,7 +244,7 @@ kategoriartikell = () =>{
           
         })
         .catch(error => {
-         alert(error);
+        //  alert(error);
         });
 }
 handleDel = event =>{
@@ -244,7 +252,7 @@ handleDel = event =>{
   axios.delete(`https://zav-wawi.herokuapp.com/api/artikel/delete/artikelid=${this.state.id}`)
   .then(res => {
     this.fetchdata();
-    alert(res.data.note)
+    // alert(res.data.note)
     // console.log(res);
     // console.log(res.data);
   });

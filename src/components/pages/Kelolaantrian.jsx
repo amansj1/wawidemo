@@ -70,6 +70,7 @@ fetchdata = () =>{
         datacon: response.data.data,
         loading: false
       });
+      
       // console.log(response);
     })
     .catch(error => {
@@ -85,7 +86,11 @@ fetchdata = () =>{
         loading: false
         
       });
-      Swal.hideLoading()
+      Swal.fire(
+        'Connected!',
+        'Loading Selesai',
+        'success'
+      )
       // console.log(response);
     })
     .catch(error => {
@@ -150,7 +155,11 @@ this.getdatadokter();
         this.setState({
           loading: false
         });
-        Swal.hideLoading();
+        Swal.fire(
+          'Connected!',
+          'Loading Selesai',
+          'success'
+        )
         
         // console.log(response);
       })
@@ -174,7 +183,11 @@ this.getdatadokter();
         this.setState({
           loading: false
         });
-        Swal.hideLoading()
+        Swal.fire(
+          'Connected!',
+          'Loading Selesai',
+          'success'
+        )
         
         // console.log(response);
       })
@@ -186,6 +199,7 @@ this.getdatadokter();
 
   cek =(e) =>{
     e.preventDefault();
+    Swal.showLoading();
     this.setState({
         loading:true
     })

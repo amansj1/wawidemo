@@ -60,12 +60,16 @@ fetchdata = () =>{
       loading: false,
       
     });
-    Swal.hideLoading();
+    Swal.fire(
+      'Connected!',
+      'Loading Selesai',
+      'success'
+    )
     // console.log(response.data.data);
     this.datamonik();
   })
   .catch(error => {
-   alert(error);
+  //  alert(error);
   });
   
 }
@@ -148,7 +152,7 @@ resetstate(){
     
   })
   .catch(error => {
-   alert(error);
+  //  alert(error);
   }); 
   }
   handleSubmitAdd (e){
@@ -168,7 +172,7 @@ resetstate(){
     axios.post(apiurl, add)
     .then(res => {
       this.fetchdata();
-      alert(res.note);
+      // alert(res.note);
     })
     
     this.resetstate();
@@ -193,7 +197,7 @@ resetstate(){
     .then(res => {
       this.fetchdata();
       // console.log(res.data);
-      alert(res.data.note);
+      // alert(res.data.note);
     })
     this.resetstate();
     
@@ -204,7 +208,7 @@ resetstate(){
     .then(res => {
       this.fetchdata();
       // console.log(res);
-      alert(res.data.note);
+      // alert(res.data.note);
       this.resetstate();
     })
     
