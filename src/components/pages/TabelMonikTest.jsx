@@ -52,7 +52,7 @@ export default class TabelMonikTest  extends React.Component{
 // ambil data ke API (GET DATA)
 
 fetchdata = () =>{
-  const url ='https://zav-wawi.herokuapp.com/api/jadwal_monik/all';
+  const url ='https://adept-voltage-240714.appspot.com/api/jadwal_monik/all';
   axios.get(url)
   .then(response => {
     this.setState({
@@ -142,7 +142,7 @@ resetstate(){
   }
 
   datamonik = () =>{
-    const url ='https://zav-wawi.herokuapp.com/api/monik/all';
+    const url ='https://adept-voltage-240714.appspot.com/api/monik/all';
   axios.get(url)
   .then(response => {
     this.setState({
@@ -158,7 +158,7 @@ resetstate(){
   handleSubmitAdd (e){
     e.preventDefault();
     this.resetstate();
-    const apiurl = 'https://zav-wawi.herokuapp.com/api/jadwal_monik/create'
+    const apiurl = 'https://adept-voltage-240714.appspot.com/api/jadwal_monik/create'
     const add ={
       id_mst_monik : this.state.idmonik,
       lat_monik : this.state.lat,
@@ -181,7 +181,7 @@ resetstate(){
   handleSubmitPut (e){
     e.preventDefault();
     const id = this.state.id
-    const apiurl = 'https://zav-wawi.herokuapp.com/api/jadwal_monik/update/jadwalmonikid='
+    const apiurl = 'https://adept-voltage-240714.appspot.com/api/jadwal_monik/update/jadwalmonikid='
     // console.log(apiurl + id);
     debugger
     const put ={
@@ -204,7 +204,7 @@ resetstate(){
   }
   handleDel = event =>{
     event.preventDefault();
-    axios.delete(`https://zav-wawi.herokuapp.com/api/jadwal_monik/delete/jadwalmonikid=${this.state.id}`)
+    axios.delete(`https://adept-voltage-240714.appspot.com/api/jadwal_monik/delete/jadwalmonikid=${this.state.id}`)
     .then(res => {
       this.fetchdata();
       // console.log(res);

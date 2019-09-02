@@ -87,7 +87,7 @@ export default class InputDiagObat extends React.Component{
         })
     }
     fetchdatapasien = () =>{
-        const url ='https://zav-wawi.herokuapp.com/api/pasien_monik/all';
+        const url ='https://adept-voltage-240714.appspot.com/api/pasien_monik/all';
         axios.get(url)
         .then(response => {
           this.setState({
@@ -111,7 +111,7 @@ export default class InputDiagObat extends React.Component{
       fetchdatatrans = ()=>{
         Swal.showLoading();
         const id = this.state.id_pasien;
-        const url ='https://zav-wawi.herokuapp.com/api/trans_monik/bypasienmonikid=';
+        const url ='https://adept-voltage-240714.appspot.com/api/trans_monik/bypasienmonikid=';
        
         axios.get(url+id)
         .then(response => {
@@ -173,7 +173,7 @@ export default class InputDiagObat extends React.Component{
     handleSubmitDiagObat(e){
         e.preventDefault();
         Swal.showLoading();
-        const apiurl = 'https://zav-wawi.herokuapp.com/api/diagnosa_pms/create'
+        const apiurl = 'https://adept-voltage-240714.appspot.com/api/diagnosa_pms/create'
         const addpasien ={
             id_trans_monik: this.state.id_trans,
             diagnosa:[
@@ -189,7 +189,7 @@ export default class InputDiagObat extends React.Component{
         }).catch(error => {
             // alert(error.message);
            });
-        const apiurl1 = 'https://zav-wawi.herokuapp.com/api/obat_pms/create'
+        const apiurl1 = 'https://adept-voltage-240714.appspot.com/api/obat_pms/create'
         const addobat ={
             id_trans_monik: this.state.id_trans,
             obat:[

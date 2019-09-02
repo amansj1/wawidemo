@@ -119,7 +119,7 @@ export default class InputPasienMonik extends React.Component{
 
     
     fetchdata = () =>{
-        const url ='https://zav-wawi.herokuapp.com/api/pasien_monik/all';
+        const url ='https://adept-voltage-240714.appspot.com/api/pasien_monik/all';
         axios.get(url)
         .then(response => {
           this.setState({
@@ -141,7 +141,7 @@ export default class InputPasienMonik extends React.Component{
       }
 
     datakegiatanmonik = () =>{
-        const url ='https://zav-wawi.herokuapp.com/api/jadwal_monik/all';
+        const url ='https://adept-voltage-240714.appspot.com/api/jadwal_monik/all';
         axios.get(url)
         .then(response => {
           this.setState({
@@ -184,7 +184,7 @@ export default class InputPasienMonik extends React.Component{
     }
     handleDelPasien = event =>{
         event.preventDefault();
-        axios.delete(`https://zav-wawi.herokuapp.com/api/pasien_monik/delete/pasien_monikid=${this.state.id}`)
+        axios.delete(`https://adept-voltage-240714.appspot.com/api/pasien_monik/delete/pasien_monikid=${this.state.id}`)
         .then(res => {
             
             // console.log(res.data);
@@ -199,7 +199,7 @@ export default class InputPasienMonik extends React.Component{
       }
     handleSubmitTrans(e){
         e.preventDefault();
-        const apiurl = 'https://zav-wawi.herokuapp.com/api/trans_monik/create'
+        const apiurl = 'https://adept-voltage-240714.appspot.com/api/trans_monik/create'
         const addtrans ={
             kode_aksi_monik: 'TR.00'+this.state.today,
             id_jadwal_monik: this.state.id_jadwal,
@@ -236,7 +236,7 @@ export default class InputPasienMonik extends React.Component{
         e.preventDefault();
         if(this.state.isUpdate){
             const id = this.state.id
-            const apiurl = 'https://zav-wawi.herokuapp.com/api/pasien_monik/update/pasien_monikid='
+            const apiurl = 'https://adept-voltage-240714.appspot.com/api/pasien_monik/update/pasien_monikid='
             const putpasien ={
                 name:this.state.nama,
                 no_ktpkk:this.state.nik,
@@ -261,7 +261,7 @@ export default class InputPasienMonik extends React.Component{
 
 
         }else{
-        const apiurl = 'https://zav-wawi.herokuapp.com/api/pasien_monik/create'
+        const apiurl = 'https://adept-voltage-240714.appspot.com/api/pasien_monik/create'
         const addpasien ={
             kode_pasien_monik:this.state.kode_pasien_monik,
             name:this.state.nama,

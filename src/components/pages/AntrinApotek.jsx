@@ -63,7 +63,7 @@ export default class AntrinApotek extends React.Component{
     fetchdata = () =>{
       Swal.showLoading();
 
-        const url ='https://zav-wawi.herokuapp.com/api/antrian_apotek/hasprocessed/apotekid=';
+        const url ='https://adept-voltage-240714.appspot.com/api/antrian_apotek/hasprocessed/apotekid=';
         axios.get(url + this.props.id_pengguna)
         .then(response => {
           Swal.fire(
@@ -83,7 +83,7 @@ export default class AntrinApotek extends React.Component{
         });
     
     
-        const url1 ='https://zav-wawi.herokuapp.com/api/antrian_apotek/haspicked/apotekid=';
+        const url1 ='https://adept-voltage-240714.appspot.com/api/antrian_apotek/haspicked/apotekid=';
         axios.get(url1 + this.props.id_pengguna)
         .then(response => {
           this.setState({
@@ -97,7 +97,7 @@ export default class AntrinApotek extends React.Component{
           // alert(error.response);
         });
 
-        const url2 ='https://zav-wawi.herokuapp.com/api/antrian_apotek/hasrejected/apotekid=';
+        const url2 ='https://adept-voltage-240714.appspot.com/api/antrian_apotek/hasrejected/apotekid=';
         axios.get(url2 + this.props.id_pengguna)
         .then(response => {
           this.setState({
@@ -127,7 +127,7 @@ export default class AntrinApotek extends React.Component{
 
      antrianhasproses = (e) =>{
       e.preventDefault();
-      const url4 ='https://zav-wawi.herokuapp.com/api/antrian_apotek/picked/id_mst_antrian_apotek=';
+      const url4 ='https://adept-voltage-240714.appspot.com/api/antrian_apotek/picked/id_mst_antrian_apotek=';
       console.log(url4+this.state.idmstantrianpasien);
       axios.get(url4+this.state.idmstantrianpasien)
       .then(response => {
@@ -141,7 +141,7 @@ export default class AntrinApotek extends React.Component{
      }
      antrianhasreject = (e) =>{
       e.preventDefault();
-      const url4 ='https://zav-wawi.herokuapp.com/api/antrian_apotek/rejected/id_mst_antrian_apotek=';
+      const url4 ='https://adept-voltage-240714.appspot.com/api/antrian_apotek/rejected/id_mst_antrian_apotek=';
       console.log(url4+this.state.idmstantrianpasien);
       axios.get(url4+this.state.idmstantrianpasien)
       .then(response => {

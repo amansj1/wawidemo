@@ -51,7 +51,7 @@ class Login extends React.Component {
       this.setState({
         loading:true
       })
-      const apiurl = 'https://zav-wawi.herokuapp.com/api/login'
+      const apiurl = 'https://adept-voltage-240714.appspot.com/api/login'
       const put ={
         email : this.state.email,
         password : this.state.pass,

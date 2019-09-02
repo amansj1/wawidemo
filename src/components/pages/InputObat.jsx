@@ -53,7 +53,7 @@ export default class InputObat extends React.Component{
     }
 
     datajenisobat = () =>{
-        const url ='https://zav-wawi.herokuapp.com/api/jenis_obat/all';
+        const url ='https://adept-voltage-240714.appspot.com/api/jenis_obat/all';
         axios.get(url)
         .then(response => {
           this.setState({
@@ -73,7 +73,7 @@ export default class InputObat extends React.Component{
         // alert('Silahkan tambahkan stok obat apotek dengan cara memilih pada baris tabel, apabila obat tidak terdapat pada tabel silahkan pilih + Tambah Obat');
     }
     fetchdata = () =>{
-      const url2 ='https://zav-wawi.herokuapp.com/api/obat/byapotekid=';
+      const url2 ='https://adept-voltage-240714.appspot.com/api/obat/byapotekid=';
       const id = this.props.id_pengguna;
         axios.get(url2+id)
         .then(response => {
@@ -86,7 +86,7 @@ export default class InputObat extends React.Component{
         //  alert(error);
         });
 
-        const url ='https://zav-wawi.herokuapp.com/api/obat/all';
+        const url ='https://adept-voltage-240714.appspot.com/api/obat/all';
         axios.get(url)
         .then(response => {
           this.setState({
@@ -141,7 +141,7 @@ export default class InputObat extends React.Component{
 
     handleSubmit=(e)=>{
         e.preventDefault();
-        const apiurl = 'https://zav-wawi.herokuapp.com/api/obat/create/byapotekid='
+        const apiurl = 'https://adept-voltage-240714.appspot.com/api/obat/create/byapotekid='
         const addtrans ={
             fk_mst_obat: this.state.idObat,
             inventori_stok:this.state.invStok,
@@ -158,7 +158,7 @@ export default class InputObat extends React.Component{
     }
     handleSubmitObatBaru=(e)=>{
         e.preventDefault();
-        const apiurl1 = 'https://zav-wawi.herokuapp.com/api/obat/create'
+        const apiurl1 = 'https://adept-voltage-240714.appspot.com/api/obat/create'
         const addtrans ={
             nama_obat: this.state.namaObat,
             id_jenis_obat:this.state.idJenis

@@ -49,7 +49,7 @@ constructor(props){
 }
 fetchdata = () =>{
 
-    const url ='https://zav-wawi.herokuapp.com/api/antrian/puskesmasid=';
+    const url ='https://adept-voltage-240714.appspot.com/api/antrian/puskesmasid=';
     axios.get(url + this.props.ipus + '&&poliid=' + this.state.poliid + '&&dokterid=' + this.state.dokterid + '&&all=true' )
     .then(response => {
       this.setState({
@@ -63,7 +63,7 @@ fetchdata = () =>{
     });
 
 
-    const url1 ='https://zav-wawi.herokuapp.com/api/antrian/hasconfirm/puskesmasid=';
+    const url1 ='https://adept-voltage-240714.appspot.com/api/antrian/hasconfirm/puskesmasid=';
     axios.get(url1 + this.props.ipus + '&&poliid=' + this.state.poliid + '&&dokterid=' + this.state.dokterid )
     .then(response => {
       this.setState({
@@ -78,7 +78,7 @@ fetchdata = () =>{
     });
 
 
-    const url2 ='https://zav-wawi.herokuapp.com/api/antrian/hasprocess/puskesmasid=';
+    const url2 ='https://adept-voltage-240714.appspot.com/api/antrian/hasprocess/puskesmasid=';
     axios.get(url2 + this.props.ipus + '&&poliid=' + this.state.poliid + '&&dokterid=' + this.state.dokterid )
     .then(response => {
       this.setState({
@@ -104,7 +104,7 @@ this.getdatadokter();
   }
 
   getdatadokter = ()=>{
-    const url ='https://zav-wawi.herokuapp.com/api/dokter/bypuskesmasid=';
+    const url ='https://adept-voltage-240714.appspot.com/api/dokter/bypuskesmasid=';
     axios.get(url + this.props.ipus)
     .then(response => {
       this.setState({
@@ -116,7 +116,7 @@ this.getdatadokter();
       console.log(error.response);
     });
 
-    const url1 ='https://zav-wawi.herokuapp.com/api/poli/all';
+    const url1 ='https://adept-voltage-240714.appspot.com/api/poli/all';
     axios.get(url1)
     .then(response => {
       this.setState({
@@ -148,7 +148,7 @@ this.getdatadokter();
       id_antrian : rowData.id_mst_antrian });
       Swal.showLoading();
 
-      const url4 ='https://zav-wawi.herokuapp.com/api/antrian/confirm/antrianid=';
+      const url4 ='https://adept-voltage-240714.appspot.com/api/antrian/confirm/antrianid=';
       axios.get(url4 + this.state.id_antrian )
       .then(response => {
         this.fetchdata();
@@ -176,7 +176,7 @@ this.getdatadokter();
       id_antrian : rowData.id_mst_antrian });
       Swal.showLoading();
 
-      const url5 ='https://zav-wawi.herokuapp.com/api/antrian/processed/antrianid=';
+      const url5 ='https://adept-voltage-240714.appspot.com/api/antrian/processed/antrianid=';
       axios.get(url5 + this.state.id_antrian )
       .then(response => {
         this.fetchdata();

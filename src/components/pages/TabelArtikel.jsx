@@ -85,7 +85,7 @@ handleSubmitAdd (e){
   .then(snapshot => snapshot.ref.getDownloadURL())
   .then((url) => {
     console.log(url);
-    const apiurl = 'https://zav-wawi.herokuapp.com/api/artikel/create'
+    const apiurl = 'https://adept-voltage-240714.appspot.com/api/artikel/create'
     const addartikel ={
       id_mst_penulis : this.props.id_pengguna,
       judul_artikel : this.state.Judul,
@@ -111,7 +111,7 @@ handleSubmitAdd (e){
 }
 handleSubmitKat (e){
   e.preventDefault();
-  const apiurl1 = 'https://zav-wawi.herokuapp.com/api/kategori/create'
+  const apiurl1 = 'https://adept-voltage-240714.appspot.com/api/kategori/create'
   const addartikel ={
     kategori : this.state.Kat    
   };
@@ -147,7 +147,7 @@ handleSubmitPut (e){
   .then(snapshot => snapshot.ref.getDownloadURL())
   .then((url) => {
     const id = this.state.id
-    const apiurl = 'https://zav-wawi.herokuapp.com/api/artikel/update/artikelid='
+    const apiurl = 'https://adept-voltage-240714.appspot.com/api/artikel/update/artikelid='
     // console.log(apiurl + id);
 
     const putartikel ={
@@ -174,7 +174,7 @@ handleSubmitPut (e){
 
 // ambil data ke API (GET DATA)
 fetchdata = () =>{
-  const url ='https://zav-wawi.herokuapp.com/api/artikel/all';
+  const url ='https://adept-voltage-240714.appspot.com/api/artikel/all';
   axios.get(url)
   .then(response => {
     this.setState({
@@ -234,7 +234,7 @@ toggleU() {
   };
 
 kategoriartikell = () =>{
-  const url ='https://zav-wawi.herokuapp.com/api/kategori/all';
+  const url ='https://adept-voltage-240714.appspot.com/api/kategori/all';
         axios.get(url)
         .then(response => {
           this.setState({
@@ -249,7 +249,7 @@ kategoriartikell = () =>{
 }
 handleDel = event =>{
   event.preventDefault();
-  axios.delete(`https://zav-wawi.herokuapp.com/api/artikel/delete/artikelid=${this.state.id}`)
+  axios.delete(`https://adept-voltage-240714.appspot.com/api/artikel/delete/artikelid=${this.state.id}`)
   .then(res => {
     this.fetchdata();
     // alert(res.data.note)
